@@ -9,7 +9,8 @@ class Posts extends Component {
     posts: [],
     postForm: {
       post: ''
-    }
+    },
+    editing: false
   }
 
   componentDidMount() {
@@ -48,19 +49,38 @@ class Posts extends Component {
       .catch(error => {
         console.log(error)
       });
-    this.state.posts.push(formData)
+    // this.state.posts.push(formData)
     console.log(this.state.posts)
+    this.onAddition(formData);
+  }
+
+  onAddition = (newPost) => {
+    console.log('[New Post]', newPost);
+    const posts = [...this.state.posts]
+    posts.push({
+      _id: Date.now,
+      post: newPost.post
+    })
+
+    this.setState({
+      posts: posts,
+      postForm: {
+        post: ''
+      },
+      editing: false
+    })
+  }
+
+  setEditing = () => {
+    this.setState({
+      editing: true
+    });
   }
 
   render() {
-    
-    return(
-      <Aux>
-        <div className="container">
-          {this.state.posts.map((post, i) => (
-            <Post key={post._id} singlePost={post} />
-          ))}
-        </div>
+  let form = <button onClick={this.setEditing} >Make Post</button>;
+    if(this.state.editing) {
+      form = (
         <form className="container" onSubmit={this.postForm} >
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">Post</label>
@@ -68,6 +88,17 @@ class Posts extends Component {
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
+      )
+    }
+
+    return(
+      <Aux>
+        <div className="container">
+          {this.state.posts.map((post, i) => (
+            <Post key={post._id} singlePost={post} />
+          ))}
+        </div>
+        {form}
       </Aux>
     )
   }
