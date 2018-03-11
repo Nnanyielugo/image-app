@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import Post from '../../components/Post/Post';
+import Aux from '../../hoc/Aux/Aux';
 
 class Posts extends Component {
   state = {
-    posts: []
+    posts: [],
+    postForm: {
+      post: ''
+    }
   }
 
   componentDidMount() {
@@ -19,14 +23,52 @@ class Posts extends Component {
         console.log(this.state)
       })
   }
+
+  inputChangedHandler = (event) => {
+    // console.log(event.target.value)
+    
+    const updatedPostForm = {
+      ...this.state.postForm
+    }
+
+    updatedPostForm.post = event.target.value;
+    this.setState({
+      postForm: updatedPostForm
+    });
+  }
+
+  postForm = (event) => {
+    event.preventDefault();
+    const formData = this.state.postForm;
+
+    axios.post('http://localhost:5000/api/', formData)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      });
+    this.state.posts.push(formData)
+    console.log(this.state.posts)
+  }
+
   render() {
     
     return(
-      <div>
-        {this.state.posts.map(post => (
-          <Post key={post._id} singlePost={post} />
-        ))}
-      </div>
+      <Aux>
+        <div className="container">
+          {this.state.posts.map((post, i) => (
+            <Post key={post._id} singlePost={post} />
+          ))}
+        </div>
+        <form className="container" onSubmit={this.postForm} >
+          <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Post</label>
+            <textarea type="email" name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="What's on your mind..." />
+          </div>
+          <button type="submit" className="btn btn-primary">Submit</button>
+        </form>
+      </Aux>
     )
   }
 }
