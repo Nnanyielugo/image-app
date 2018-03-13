@@ -1,0 +1,27 @@
+.Post {
+  width: 500px;
+}
+
+.Post img {
+  width: 450px;
+  height: 330px;
+  margin-left: 2%;
+}
+
+.Post h3 {
+  font-style: italic;
+}
+
+.Post .postBody {
+  margin-top: 25px;
+  background-color: rgb(241, 232, 232);
+}
+
+#tag {
+  margin-top: 4px;
+  float: right;
+  font-style: oblique;
+  background-color: rgb(212, 207, 207);
+  padding: 2.5px;
+  border-radius: 5px;
+}

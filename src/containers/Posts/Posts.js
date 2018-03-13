@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-import Post from '../../components/Post/Post';
+import Post from '../../components/Posts/Posts';
 import Aux from '../../hoc/Aux/Aux';
 
 class Posts extends Component {
   state = {
     posts: [],
     postForm: {
-      post: ''
+      post: '',
+      imgSrc: '',
+      title: '',
+      tagList: []      
     },
+    tag: '',
     editing: false
   }
 
   componentDidMount() {
     console.log('[Posts] mounted');
-    axios.get('http://localhost:5000/api')
+    axios.get('http://localhost:5000/api/posts')
       .then(response => {
         console.log(response.data);
         this.setState({
-          posts: response.data          
+          posts: response.data.posts          
         })
         console.log(this.state)
       })
@@ -31,18 +35,19 @@ class Posts extends Component {
     const updatedPostForm = {
       ...this.state.postForm
     }
-
-    updatedPostForm.post = event.target.value;
-    this.setState({
-      postForm: updatedPostForm
-    });
+    const field = event.target.name
+    const form = updatedPostForm;
+    form[field] = event.target.value;;
+    return this.setState({postForm: form})
   }
+
+  
 
   postForm = (event) => {
     event.preventDefault();
     const formData = this.state.postForm;
 
-    axios.post('http://localhost:5000/api/', formData)
+    axios.post('http://localhost:5000/api/posts', formData)
       .then(response => {
         console.log(response)
       })
@@ -57,16 +62,16 @@ class Posts extends Component {
   onAddition = (newPost) => {
     console.log('[New Post]', newPost);
     const posts = [...this.state.posts]
-    posts.push({
+    posts.unshift({
       _id: Date.now,
-      post: newPost.post
+      post: newPost.post,
+      title: newPost.title,
+      // imgSrc: newPost.imgSrc
     })
 
     this.setState({
       posts: posts,
-      postForm: {
-        post: ''
-      },
+      postForm: { },
       editing: false
     })
   }
@@ -83,8 +88,12 @@ class Posts extends Component {
       form = (
         <form className="container" onSubmit={this.postForm} >
           <div className="form-group">
+            <label htmlFor="exampleInputEmail1">Title</label>
+            <input type="text" name="title" value={this.state.postForm.title} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="Title of your post" />
+          </div>
+          <div className="form-group">
             <label htmlFor="exampleInputEmail1">Post</label>
-            <textarea type="email" name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="What's on your mind..." />
+            <textarea type="text" name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
