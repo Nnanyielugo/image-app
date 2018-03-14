@@ -15,20 +15,13 @@ class Posts extends Component {
   }
 
   render() {
-  let form = <button onClick={this.props.onSetEditing} >Make Post</button>;
-  if(this.props.isEditing) {
-      form = (
-        <Form />
-      )
-    }
-
     return(
       <div>
         <div className="container main-post">
-        {this.props.fullPosts.map(post  => (
-        <Post key={post._id} singlePost={post} />))}
+          {this.props.fullPosts.map(post  => (
+          <Post key={post._id} singlePost={post} />))}
         </div>
-        {form}
+        <Form />
       </div>
     )
   }
@@ -43,8 +36,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onloadPosts: () => dispatch(actions.fetchPosts()),
-    onSetEditing: () => dispatch(actions.triggerEditing())
+    onloadPosts: () => dispatch(actions.fetchPosts())
   }
 }
 

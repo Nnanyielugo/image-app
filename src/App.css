@@ -64,3 +64,12 @@
 .topnav a {
   font-size: 30px;
 }
+
+.form-button {
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn {
+  margin-bottom: 8px;
+}

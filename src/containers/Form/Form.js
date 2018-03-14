@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
+// import Dialog from 'material-ui/Dialog';
+import { Modal } from 'react-bootstrap'
 
 import * as actions from '../../store/actions/index';
+// import Modal from '../../components/UI/Modal/Modal';
 
 let timer = '';
 class Form extends Component {
@@ -91,24 +94,29 @@ class Form extends Component {
       imagePreview = (<img src={imagePreviewUrl} className='dropPreview'/>);
     }
     return(
-      <form className="container form" onSubmit={this.postForm} >
-        <div className="dropZone main-post" id="upload-file-container">{imagePreview}
-          <input type="file" name="imgSrc"  onChange={this.handleImageChange} className="form-control"  placeholder="Title of your post" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input type="text" name="title" value={this.state.postForm.title} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="Title of your post" />
-        </div>
-        <div className="form-group">
-          <label htmlFor="post">Post</label>
-          <textarea type="text" style={{height:"200px"}} name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
-        </div>
-        <button type="submit" className="btn btn-primary">Submit</button>
-        <button type="cancel" className="btn btn-warning" id="btn" onClick={this.props.onResetEditing} >Cancel</button>
-      </form>
+      <Modal show={this.props.isEditing} onHide={this.props.onResetEditing} aria-labelledby="contained-modal-title-sm" className="custom-modal" >
+       
+          <form className="container form" onSubmit={this.postForm} >
+            <div className="dropZone main-post" id="upload-file-container">{imagePreview}
+              <input type="file" name="imgSrc"  onChange={this.handleImageChange} className="form-control"  placeholder="Title of your post" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="title">Title</label>
+              <input type="text" name="title" value={this.state.postForm.title} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="Title of your post" />
+            </div>
+            <div className="form-group">
+              <label htmlFor="post">Post</label>
+              <textarea type="text" style={{height:"200px"}} name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
+            </div>
+            <button type="submit" className="btn btn-primary">Submit</button>
+            <button type="cancel" className="btn btn-warning" id="btn" onClick={this.props.onResetEditing} >Cancel</button>
+          </form>
+       
+      </Modal>
     )
   }
 }
+
 
 const mapStateToProps = state => {
   return {

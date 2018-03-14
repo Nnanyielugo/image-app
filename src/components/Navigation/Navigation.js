@@ -13,11 +13,11 @@ const navigation = props => {
         <a className="navbar-brand" href="#">Imagify</a>
       </div>
       <div id="navbar" className="collapse navbar-collapse">
-        {/* {<ul className="nav navbar-nav">
-          <li className="active"><a href="#">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>} */}
+        <ul className="nav navbar-nav navbar-right">
+          <li className="form-button" onClick={props.clicked} ><a>Make Post</a></li>
+          {/* {<li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>} */}
+        </ul>
       </div>
     </div>
   )
