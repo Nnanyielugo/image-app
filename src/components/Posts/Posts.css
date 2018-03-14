@@ -1,15 +1,18 @@
 .Post {
-  width: 600px;
+  width: 50%;
   background-color: whitesmoke;
   padding: 10px;
   margin-bottom: 10px;
   border-radius: 8px;
+  
 }
 
 .Post img {
-  width: 500px;
+  width: 97%;
   height: 330px;
-  margin-left: 2%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .Post h3 {
@@ -30,4 +33,10 @@
   background-color: rgb(212, 207, 207);
   padding: 2.5px;
   border-radius: 5px;
+}
+
+@media screen and (max-width: 600px) {
+  .Post {
+      width: 94%;
+  }
 }

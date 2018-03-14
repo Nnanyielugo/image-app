@@ -8,10 +8,6 @@ import * as actions from '../../store/actions/index'
 
 
 class Posts extends Component {
-  state = {
-    
-    editing: false
-  }
 
   componentDidMount() {
     console.log('[Posts] mounted');
@@ -19,11 +15,10 @@ class Posts extends Component {
   }
 
   render() {
-  let form = <button onClick={this.setEditing} >Make Post</button>;
-  if(this.state.editing) {
+  let form = <button onClick={this.props.onSetEditing} >Make Post</button>;
+  if(this.props.isEditing) {
       form = (
-        ''
-        // <Form />
+        <Form />
       )
     }
 
@@ -41,13 +36,15 @@ class Posts extends Component {
 
 const mapStateToProps = state => {
   return {
-    fullPosts: state.posts
+    fullPosts: state.post.posts,
+    isEditing: state.form.isEditing
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onloadPosts: () => dispatch(actions.fetchPosts())
+    onloadPosts: () => dispatch(actions.fetchPosts()),
+    onSetEditing: () => dispatch(actions.triggerEditing())
   }
 }
 

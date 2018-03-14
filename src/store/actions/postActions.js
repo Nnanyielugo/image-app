@@ -2,10 +2,10 @@ import * as types from './actionTypes';
 import axios from 'axios';
 
 
-export const loadPosts = data => {
+const loadPosts = data => {
   return {
     type: types.LOAD_POSTS,
-    data: data
+    data
   }
 }
 

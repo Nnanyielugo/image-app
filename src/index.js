@@ -8,15 +8,17 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
-import postReducer from './store/reducers/postReducers'
+import postReducer from './store/reducers/postReducers';
+import formReducer from './store/reducers/formReducers';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-// const rootReducer = combineReducers({
-//   post: postReducer
-// })
+const rootReducer = combineReducers({
+  post: postReducer,
+  form: formReducer
+})
 
-const store = createStore(postReducer, composeEnhancers(applyMiddleware(thunk)))
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 const app = (
   <Provider store={store}>

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
+
+import * as actions from '../../store/actions/index';
 
 let timer = '';
 class Form extends Component {
@@ -38,9 +41,14 @@ class Form extends Component {
     reader.onloadend = () => {
       this.setState({
         imagePreviewUrl: reader.result,
-        imgSrc: file
+        postForm: {
+          imgSrc: file
+        }
+        
       })
       // this.state.
+      console.log("[ImgSrc]: ", this.state.postForm.imgSrc)
+      console.log(["file]: ", file])
     }
     reader.readAsDataURL(file)
   }
@@ -53,15 +61,27 @@ class Form extends Component {
     data.append('title', this.state.postForm.title)
     data.append('post', this.state.postForm.post)
 
-    axios.post('http://localhost:5000/api/posts', data)
-      .then(response => {
-        console.log("Response from api: ", response)
-      })
-      .catch(error => {
-        console.log(error)
-      });
-    timer = _.delay(this.loadPosts, 1000)
+    this.props.sendPostHandler(data);
+    this.clearForm()
+    this.props.onResetEditing()
   }
+
+  postsHandler = () =>{
+    this.props.loadPostsHandler()
+  }
+
+  clearForm = () => {
+    // const prevState = {...this.state}
+    // const prevStateForm = _.cloneDeep(...this.state.postForm);
+    timer = _.delay(this.postsHandler, 1000)
+    this.setState({
+      imagePreviewUrl: '',
+      statusMsg: (<p>Click here to upload...</p>),
+      postForm: {}
+    })
+  }
+
+
 
   render() {
     let {imagePreviewUrl} = this.state;
@@ -83,11 +103,25 @@ class Form extends Component {
           <label htmlFor="post">Post</label>
           <textarea type="text" style={{height:"200px"}} name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
         </div>
-        <button type="submit" className="btn btn-primary" id="btn">Submit</button>
-        <button type="cancel" className="btn btn-warning" id="btn">Cancel</button>
+        <button type="submit" className="btn btn-primary">Submit</button>
+        <button type="cancel" className="btn btn-warning" id="btn" onClick={this.props.onResetEditing} >Cancel</button>
       </form>
     )
   }
 }
 
-export default Form;
+const mapStateToProps = state => {
+  return {
+    isEditing: state.form.isEditing
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    sendPostHandler: (data) => dispatch(actions.sendPosts(data)),
+    loadPostsHandler: () => dispatch(actions.fetchPosts()),
+    onResetEditing: () => dispatch(actions.triggerResetEditing()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
