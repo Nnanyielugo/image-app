@@ -5,7 +5,7 @@ import Nav from '../../components/Navigation/Navigation';
 class Navigation extends Component {
   render() {
     return(
-      <nav className="navbar navbar-inverse ">
+      <nav className="navbar navbar-inverse navbar-fixed-top">
         <Nav />
       </nav>
     )

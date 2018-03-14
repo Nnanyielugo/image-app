@@ -17,11 +17,12 @@ const posts = props => {
 
   return(
     <article className="Post">
-      <h3>{props.singlePost.title}</h3>
       {imgSrc}
-      <div className="postBody">{props.singlePost.post}</div>
+      <h3>{props.singlePost.title}</h3>
+      <p className="postBody">{props.singlePost.post}</p>
       <div>{tag}</div>
       <hr />
+      <div>Comments</div>
     </article>    
   )
 }
