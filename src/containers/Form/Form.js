@@ -63,9 +63,14 @@ class Form extends Component {
     data.append('imgSrc', this.state.postForm.imgSrc)
     data.append('title', this.state.postForm.title)
     data.append('post', this.state.postForm.post)
-
+    this.props.onResetEditing()
     this.props.sendPostHandler(data);
     this.clearForm()
+    
+  }
+
+  resetEditing = (e) => {
+    e.preventDefault();
     this.props.onResetEditing()
   }
 
@@ -96,7 +101,7 @@ class Form extends Component {
     return(
       <Modal show={this.props.isEditing} onHide={this.props.onResetEditing} aria-labelledby="contained-modal-title-sm" className="custom-modal" >
        
-          <form className="container form" onSubmit={this.postForm} >
+          <form className="container form" >
             <div className="dropZone main-post" id="upload-file-container">{imagePreview}
               <input type="file" name="imgSrc"  onChange={this.handleImageChange} className="form-control"  placeholder="Title of your post" />
             </div>
@@ -108,8 +113,8 @@ class Form extends Component {
               <label htmlFor="post">Post</label>
               <textarea type="text" style={{height:"200px"}} name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
             </div>
-            <button type="submit" className="btn btn-primary">Submit</button>
-            <button type="cancel" className="btn btn-warning" id="btn" onClick={this.props.onResetEditing} >Cancel</button>
+            <button type="submit" className="btn btn-primary" onClick={this.postForm}>Submit</button>
+            <button type="cancel" className="btn btn-warning" id="btn" onClick={(e) => this.resetEditing(e)} >Cancel</button>
           </form>
        
       </Modal>
