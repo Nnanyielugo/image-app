@@ -94,6 +94,7 @@ export const checkAuthState = () => {
     user.email = localStorage.getItem('email');
     user.username = localStorage.getItem('username');
     user.token = localStorage.getItem('token');
+    user.imageSrc = localStorage.getItem('imageSrc');
 
     if(!user.token) {
       dispatch(logout());

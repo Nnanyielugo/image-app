@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
 
@@ -122,27 +123,18 @@ class Signup extends Component {
     
   }
 
-  // clearForm = () => {
-  //   // const prevState = {...this.state}
-  //   // const prevStateForm = _.cloneDeep(...this.state.postForm);
-  //   timer = _.delay(this.postsHandler, 1000)
-  //   this.setState({
-  //     imagePreviewUrl: '',
-  //     statusMsg: (<p>Click here to upload...</p>),
-  //     postForm: {}
-  //   })
-  // }
-
-
   render() {
+    const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
     let {imagePreviewUrl} = this.state;
     let imagePreview = this.state.statusMsg
     
     if(imagePreviewUrl) {
       imagePreview = (<img src={imagePreviewUrl} className='dropPreview'/>);
     }
+
     return (
       <form>
+        {loggedInRedirect}
         <div className="center-div"><h3>SIGNUP FORM</h3></div>
 
         <div className="dropZone register-img" id="upload-file-container">{imagePreview}
@@ -203,10 +195,16 @@ class Signup extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.loggedIn
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onRegister: (form) => dispatch(actions.register(form))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Signup);
+export default connect(mapStateToProps, mapDispatchToProps)(Signup);

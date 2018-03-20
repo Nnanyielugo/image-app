@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 
 import * as actions from '../../store/actions/index';
 
@@ -57,9 +58,11 @@ class Login extends Component {
   }
 
   render() {
+    const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
     return (
       
       <form >
+        {loggedInRedirect}
         <div className="center-div"><h3>LOGIN FORM</h3></div>
         <FormGroup
           controlId="formBasicText"
@@ -104,10 +107,16 @@ class Login extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.loggedIn
+  }
+}
+
 const mapDispatchToProps = dispatch => {
   return {
     onLogin: (form) => dispatch(actions.login(form))
   }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

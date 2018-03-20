@@ -7,7 +7,7 @@
   
 }
 
-.Post img {
+.Post .img {
   width: 97%;
   height: 330px;
   display: block;
@@ -24,6 +24,19 @@
   font-family: Arial, Helvetica, sans-serif;
   font-size: 16px;
   
+}
+
+.Post .username {
+  margin-left: 10px;
+  font-weight: bolder;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-bottom: 10px;
 }
 
 #tag {

@@ -14,9 +14,16 @@ const resetEditing = () => {
 }
 
 export const sendPosts = (data) => {
+  let token = null;
+  const tokenInStorage = localStorage.getItem('token');
+  if(tokenInStorage !== null) {
+    token = tokenInStorage;
+  }
   console.log(data)
   return dispatch => {
-    axios.post('http://localhost:5000/api/posts', data)
+    axios.post('http://localhost:5000/api/posts', data, {
+      headers: { Authorization: "Bearer " + token}
+    })
     .then(response => {
       console.log("Response from api: ", response)
       triggerResetEditing()
