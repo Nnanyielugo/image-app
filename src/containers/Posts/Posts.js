@@ -11,7 +11,8 @@ class Posts extends Component {
 
   componentDidMount() {
     console.log('[Posts] mounted');
-    this.props.onloadPosts()
+    this.props.onloadPosts();
+    this.props.onCheckAuth();
   }
 
   render() {
@@ -21,7 +22,7 @@ class Posts extends Component {
           {this.props.fullPosts.map(post  => (
           <Post key={post._id} singlePost={post} />))}
         </div>
-        <Form />
+        
       </div>
     )
   }
@@ -30,13 +31,15 @@ class Posts extends Component {
 const mapStateToProps = state => {
   return {
     fullPosts: state.post.posts,
-    isEditing: state.form.isEditing
+    isEditing: state.form.isEditing,
+    user: state.auth.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    onloadPosts: () => dispatch(actions.fetchPosts())
+    onloadPosts: () => dispatch(actions.fetchPosts()),
+    onCheckAuth: () => dispatch(actions.checkAuthState())
   }
 }
 

@@ -13,7 +13,7 @@ export const fetchPosts = () => {
   return dispatch => {
     axios.get('http://localhost:5000/api/posts')
     .then(response => {
-      console.log("[posts]", response)
+      console.log("[posts]: ", response)
       dispatch(loadPosts(response.data))
     })
     .catch(error => {

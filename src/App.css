@@ -34,8 +34,26 @@
   box-sizing: border-box;
 }
 /* ****** FORM STYLING ****** */
+.register-img {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
 .form {
   width: 500px;
+}
+
+.center-div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #006dcc;
+}
+
+.center-div h3 {
+  font-weight: bolder;
 }
 
 #upload-file-container {
@@ -72,4 +90,13 @@
 
 .btn {
   margin-bottom: 8px;
+}
+
+.top-spacing {
+  margin-top: 65px;
+}
+
+.Auth {
+  width: 35%;
+  background-color: whitesmoke;
 }

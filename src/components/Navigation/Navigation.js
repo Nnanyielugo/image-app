@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const navigation = props => {
   return(
@@ -10,13 +11,13 @@ const navigation = props => {
           <span className="icon-bar"></span>
           <span className="icon-bar"></span>
         </button>
-        <a className="navbar-brand" href="#">Imagify</a>
+        <Link className="navbar-brand" to="/">Imagify</Link>
       </div>
       <div id="navbar" className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
-          <li className="form-button" onClick={props.clicked} ><a>Make Post</a></li>
-          {/* {<li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>} */}
+          <li className="form-button" ><Link to="/status">Make Post</Link></li>
+          <li className="form-button"><Link to="/login">Login</Link></li>
+          <li className="form-button"><Link to="/logout">Logout</Link></li>
         </ul>
       </div>
     </div>

@@ -22,6 +22,10 @@ class Form extends Component {
     statusMsg: (<p>Click here to upload...</p>),
   }
 
+  componentWillMount() {
+    this.props.onSetEditing()
+  }
+
   inputChangedHandler = (event) => {
     // console.log(event.target.value)
     
@@ -74,7 +78,7 @@ class Form extends Component {
     this.props.onResetEditing()
   }
 
-  postsHandler = () =>{
+  postsHandler = () => {
     this.props.loadPostsHandler()
   }
 
@@ -133,6 +137,7 @@ const mapDispatchToProps = dispatch => {
   return {
     sendPostHandler: (data) => dispatch(actions.sendPosts(data)),
     loadPostsHandler: () => dispatch(actions.fetchPosts()),
+    onSetEditing: () => dispatch(actions.triggerEditing()),
     onResetEditing: () => dispatch(actions.triggerResetEditing()),
   }
 }
