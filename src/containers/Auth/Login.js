@@ -59,11 +59,13 @@ class Login extends Component {
 
   render() {
     const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
+    const error = this.props.error ? <div className="error">{this.props.error}</div> : null;
     return (
       
       <form >
         {loggedInRedirect}
         <div className="center-div"><h3>LOGIN FORM</h3></div>
+        {error}
         <FormGroup
           controlId="formBasicText"
           validationState={this.getEmailValidationState()}
@@ -109,7 +111,8 @@ class Login extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    error: state.error.loginError
   }
 }
 

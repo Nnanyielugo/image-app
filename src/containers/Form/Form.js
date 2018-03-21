@@ -67,15 +67,16 @@ class Form extends Component {
     data.append('imgSrc', this.state.postForm.imgSrc)
     data.append('title', this.state.postForm.title)
     data.append('post', this.state.postForm.post)
-    this.props.onResetEditing()
+    this.props.onResetEditing();
     this.props.sendPostHandler(data);
-    this.clearForm()
-    
+    this.clearForm();
+    this.props.history.goBack();
   }
 
   resetEditing = (e) => {
     e.preventDefault();
-    this.props.onResetEditing()
+    this.props.onResetEditing();
+    this.props.history.goBack();
   }
 
   postsHandler = () => {
@@ -115,7 +116,7 @@ class Form extends Component {
             </div>
             <div className="form-group">
               <label htmlFor="post">Post</label>
-              <textarea type="text" style={{height:"200px"}} name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
+              <textarea type="text" rows="5" name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
             </div>
             <button type="submit" className="btn btn-primary" onClick={this.postForm}>Submit</button>
             <button type="cancel" className="btn btn-warning" id="btn" onClick={(e) => this.resetEditing(e)} >Cancel</button>

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Posts.css';
 import profile from '../../assets/profile-placeholder-03.jpeg'
@@ -22,15 +23,17 @@ const posts = props => {
 
 
   return(
-    <article className="Post">
+    <article className="Posts">
       {authorImage}
       <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
-      {imgSrc}
-      <h3>{props.singlePost.title}</h3>
-      <p className="postBody">{props.singlePost.post}</p>
-      <div>{tag}</div>
-      <hr />
-      <div>Comments</div>
+      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/post/${props.singlePost.slug}`}>
+        {imgSrc}      
+        <h3>{props.singlePost.title}</h3>
+        <p className="postBody">{props.singlePost.post}</p>
+        <div>{tag}</div>
+        <hr />
+        <div>Comments</div>
+      </Link>
     </article>    
   )
 }

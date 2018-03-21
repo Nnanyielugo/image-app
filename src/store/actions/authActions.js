@@ -22,12 +22,20 @@ const authFail = (error) => {
   }
 }
 
+const signUpErrors = error => {
+  return {
+    type: types.SIGNUP_ERROR,
+    error
+  }
+}
+
 export const logout = () => {
   localStorage.removeItem('username');
   localStorage.removeItem('id');
   localStorage.removeItem('email');
   localStorage.removeItem('username');
   localStorage.removeItem('token');
+  localStorage.removeItem('imageSrc');
 
   return {
     type: types.AUTH_LOGOUT
@@ -42,11 +50,7 @@ const authenticated = user => {
 }
 
 export const register = form => {
-  // console.log(form.imageSrc)
-  // console.log(form.values())
-  // for (var value of form.values()) {
-  //   console.log(value); 
-  // }
+
   return dispatch => {
     dispatch(authStart())
     axios.post('http://localhost:5000/api/users', form)
@@ -60,8 +64,8 @@ export const register = form => {
         dispatch(authSuccess(response.data))
       })
       .catch(error => {
-        console.log(error.response.data.error);
-        dispatch(authFail(error.response.data.errors))
+        console.log(error.response.data.errors);
+        dispatch(signUpErrors(error.response.data.errors))
       })
   }
 }

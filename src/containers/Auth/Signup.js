@@ -126,7 +126,12 @@ class Signup extends Component {
   render() {
     const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
     let {imagePreviewUrl} = this.state;
-    let imagePreview = this.state.statusMsg
+    let imagePreview = this.state.statusMsg;
+
+    // const error = this.props.error ? <div className="error">{this.props.error}</div> : null;
+
+    const usernameError = this.props.userError ? <div className="error">{this.props.userError}</div>: null;
+    const mailError= this.props.emailError ? <div className="error">{this.props.emailError}</div>: null;
     
     if(imagePreviewUrl) {
       imagePreview = (<img src={imagePreviewUrl} className='dropPreview'/>);
@@ -136,7 +141,8 @@ class Signup extends Component {
       <form>
         {loggedInRedirect}
         <div className="center-div"><h3>SIGNUP FORM</h3></div>
-
+        {usernameError}
+        {mailError}
         <div className="dropZone register-img" id="upload-file-container">{imagePreview}
           <input type="file" name="imgSrc"  onChange={this.handleImageChange} className="form-control"  placeholder="Title of your post" />
         </div>
@@ -197,7 +203,9 @@ class Signup extends Component {
 
 const mapStateToProps = state => {
   return {
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
+    userError: state.error.usernameError,
+    emailError: state.error.emailError
   }
 }
 

@@ -1,5 +1,8 @@
-import * as types from './actionTypes';
 import axios from 'axios';
+
+import * as types from './actionTypes';
+import * as urls from '../helpers/http';
+import token from '../helpers/token';
 
 const setEditing = () => {
   return {
@@ -14,16 +17,10 @@ const resetEditing = () => {
 }
 
 export const sendPosts = (data) => {
-  let token = null;
-  const tokenInStorage = localStorage.getItem('token');
-  if(tokenInStorage !== null) {
-    token = tokenInStorage;
-  }
+  
   console.log(data)
   return dispatch => {
-    axios.post('http://localhost:5000/api/posts', data, {
-      headers: { Authorization: "Bearer " + token}
-    })
+    axios.post(urls.postsUrl, data, token)
     .then(response => {
       console.log("Response from api: ", response)
       triggerResetEditing()

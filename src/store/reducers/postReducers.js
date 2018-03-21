@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-  posts: []
+  posts: [],
+  singlePost: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -10,6 +11,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         posts: action.data.posts
+      }
+    case types.LOAD_POST_BY_ID:
+      return {
+        ...state,
+        singlePost: action.data
       }
       
     default: 

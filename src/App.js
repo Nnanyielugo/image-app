@@ -9,6 +9,7 @@ import Logout from './containers/Auth/Logout';
 import './bootstrap-3.3.7-dist/css/bootstrap.min.css';
 import './font-awesome-4.7.0/css/font-awesome.min.css';
 import './App.css';
+import Post from './containers/Post/Post';
 
 
 class App extends Component {
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/login" component={Auth} />
           <Route path="/status" component={Form} />
           <Route path="/logout" component={Logout} />
+          <Route path="/post/:id" component={Post} />
           <Route path="/" exact component={Posts} />
           <Redirect to="/" />
         </Switch>

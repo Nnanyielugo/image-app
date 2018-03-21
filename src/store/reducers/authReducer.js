@@ -3,7 +3,6 @@ import * as types from '../actions/actionTypes';
 const initialState = {
   loggedIn: false, 
   user: null, 
-  error: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -18,12 +17,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         user: action.user,
         loggedIn: true,
-      }
-    case types.AUTH_FAIL:
-      return {
-        ...state,
-        loggedIn: false,
-        error: action.error
       }
     case types.AUTH_LOGOUT: 
       return {

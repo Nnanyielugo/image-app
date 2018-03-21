@@ -20,7 +20,7 @@ class Posts extends Component {
       <div>
         <div className="container main-post">
           {this.props.fullPosts.map(post  => (
-          <Post key={post._id} singlePost={post} />))}
+          <Post key={post.slug} singlePost={post} />))}
         </div>
         
       </div>

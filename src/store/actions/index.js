@@ -1,4 +1,10 @@
-export { fetchPosts } from './postActions';
+export { fetchPosts,
+          fetchPostById,
+          editPost,
+          deletePost,
+          fetchComments,
+          postComment,
+          deleteComment } from './postActions';
 
 export { sendPosts, 
           triggerEditing, 

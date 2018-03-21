@@ -101,4 +101,10 @@
   background-color: whitesmoke;
 }
 
-
+.error {
+  color: red;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
