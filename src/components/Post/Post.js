@@ -20,18 +20,26 @@ const post = props => {
     }
 
   let editable = null;
-  let deletable = null
-  if(props.user.username.toString() === props.singlePost.author.username.toString()) {
+  let deletable = null;
+  
+  if(props.user && props.user.username.toString() === props.singlePost.author.username.toString()) {
     editable = <span className="editable"><span className="edit glyphicon glyphicon-pencil"></span><span className="text">Edit Post</span></span>
     deletable = <span className="deletable"><span className=" delete glyphicon glyphicon-trash"></span><span className="text">Delete Post</span></span>
   }
 
+  
+
   if(props.comments){
     comments = props.comments.map(comment => {
+      let deletableComment = null;
+      if(props.user && props.user.username.toString() === comment.author.username.toString()) {
+        deletableComment = <span className=" deletableComment glyphicon glyphicon-trash"></span>
+      }
       return (
         <div key={comment.id}>
           {comment.author.imageSrc ? <img className="avatar-comment" src={`http://localhost:5000/${comment.author.imageSrc}`} /> : <img className="avatar" src={profile} />}
           <span><b>{comment.author.username.charAt(0).toUpperCase() + comment.author.username.slice(1)}</b></span>
+          {deletableComment}
           <div className="comment-body">{comment.body}</div>
           <hr />
         </div>

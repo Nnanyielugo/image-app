@@ -13,7 +13,6 @@ class Posts extends Component {
     console.log('[Posts] mounted');
     this.props.onloadPosts();
     this.props.onCheckAuth();
-    this.props.onClearPost()
   }
 
   render() {
@@ -40,8 +39,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onloadPosts: () => dispatch(actions.fetchPosts()),
-    onCheckAuth: () => dispatch(actions.checkAuthState()),
-    onClearPost: () => dispatch(actions.clearPost())
+    onCheckAuth: () => dispatch(actions.checkAuthState())
   }
 }
 

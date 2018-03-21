@@ -3,7 +3,8 @@ import * as types from '../actions/actionTypes';
 const initialState = {
   posts: [],
   singlePost: null,
-  comments: []
+  comments: [],
+  reload: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +28,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         singlePost: null
+      }
+    case types.SET_RELOAD:
+      return {
+        ...state,
+        reload: true
+      }
+    case types.RESET_RELOAD:
+      return {
+        ...state,
+        reload: false
       }
     default: 
       return state

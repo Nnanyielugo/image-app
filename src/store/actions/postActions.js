@@ -26,6 +26,18 @@ const fetchCommentsSuccess = data => {
   }
 }
 
+const setReload = () => {
+  return {
+    type: types.SET_RELOAD
+  }
+}
+
+const resetReload = () => {
+  return {
+    type: types.RESET_RELOAD
+  }
+}
+
 export const clearPost = () => {
   return {
     type: types.CLEAR_POST
@@ -90,6 +102,7 @@ export const fetchComments = (slug) => {
       .then(response => {
         console.log(response.data);
         dispatch(fetchCommentsSuccess(response.data))
+        dispatch(resetReload())
       })
       .catch(error => {
         console.log(error)
@@ -100,9 +113,11 @@ export const fetchComments = (slug) => {
 export const postComment = (slug, comment) => {
   return dispatch => {
     console.log("[COMMENT]", comment)
+    // dispatch(resetReload())
     axios.post(`${urls.postsUrl}/${slug}/comments`, comment, token)
       .then(response => {
         console.log(response)
+        dispatch(setReload())
       })
       .catch(error => {
         console.log(error)

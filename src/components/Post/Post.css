@@ -51,16 +51,17 @@
 .editable {
   float: right;
   padding: 5px;
-  border-radius: 3px;
-  background-color: rgba(150, 146, 146, 0.719);
+  border-radius: 5px;
+  background-color: rgba(196, 192, 192, 0.719);
   cursor: pointer;
 }
 
 .deletable{
   float: right;
   padding: 5px;
+  border-radius: 5px;
   margin-right: 13px;
-  background-color: rgba(150, 146, 146, 0.719);
+  background-color: rgba(196, 192, 192, 0.719);
   cursor: pointer;
 }
 .delete {
@@ -75,8 +76,14 @@
   margin-left: 5px;
 }
 
+.deletableComment{
+  color: red;
+  float: right;
+}
+
 .comment-body {
   margin-left: 35px;
+  clear: both;
 }
 
 #tag {
