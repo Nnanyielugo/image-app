@@ -3,6 +3,7 @@ export const LOAD_POSTS = 'LOAD_POSTS';
 export const LOAD_POST_BY_ID = 'LOAD_POST_BY_ID';
 export const RESET_EDITING = 'RESET_EDITING';
 export const SET_EDITING = 'SET_EDITING';
+export const FETCH_COMMENTS = 'FETCH_COMMENTS';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';

@@ -19,6 +19,13 @@ const loadPostById = data => {
   }
 }
 
+const fetchCommentsSuccess = data => {
+  return {
+    type: types.FETCH_COMMENTS,
+    data
+  }
+}
+
 
 export const fetchPosts = () => {
 
@@ -75,7 +82,8 @@ export const fetchComments = (slug) => {
   return dispatch => {
     axios.get(`${urls.postsUrl}/${slug}/comments`, token)
       .then(response => {
-        console.log(response.data)
+        console.log(response.data);
+        dispatch(fetchCommentsSuccess(response.data))
       })
       .catch(error => {
         console.log(error)
@@ -83,9 +91,10 @@ export const fetchComments = (slug) => {
   }
 }
 
-export const postComment = (slug) => {
+export const postComment = (slug, comment) => {
   return dispatch => {
-    axios.post(`${urls.postsUrl}/${slug}/comments`, token)
+    console.log("[COMMENT]", comment)
+    axios.post(`${urls.postsUrl}/${slug}/comments`, comment, token)
       .then(response => {
         console.log(response)
       })

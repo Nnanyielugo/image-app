@@ -20,7 +20,7 @@ class App extends Component {
           <Route path="/login" component={Auth} />
           <Route path="/status" component={Form} />
           <Route path="/logout" component={Logout} />
-          <Route path="/post/:id" component={Post} />
+          <Route path="/posts/:id" component={Post} />
           <Route path="/" exact component={Posts} />
           <Redirect to="/" />
         </Switch>

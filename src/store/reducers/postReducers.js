@@ -2,7 +2,8 @@ import * as types from '../actions/actionTypes';
 
 const initialState = {
   posts: [],
-  singlePost: null
+  singlePost: null,
+  comments: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,7 +18,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         singlePost: action.data
       }
-      
+    case types.FETCH_COMMENTS:
+      return {
+        ...state,
+        comments: action.data.comments
+      }
     default: 
       return state
   }

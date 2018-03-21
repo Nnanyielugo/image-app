@@ -21,18 +21,18 @@ const posts = props => {
   //   authorImage = 
   // }
 
+  
 
   return(
     <article className="Posts">
       {authorImage}
       <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
-      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/post/${props.singlePost.slug}`}>
+      <Link style={{ textDecoration: 'none', color: 'black' }} to={`/posts/${props.singlePost.slug}`}>
         {imgSrc}      
         <h3>{props.singlePost.title}</h3>
         <p className="postBody">{props.singlePost.post}</p>
         <div>{tag}</div>
         <hr />
-        <div>Comments</div>
       </Link>
     </article>    
   )
