@@ -19,6 +19,13 @@ const post = props => {
       commentTag = 'Comment'
     }
 
+  let editable = null;
+  let deletable = null
+  if(props.user.username.toString() === props.singlePost.author.username.toString()) {
+    editable = <span className="editable"><span className="edit glyphicon glyphicon-pencil"></span><span className="text">Edit Post</span></span>
+    deletable = <span className="deletable"><span className=" delete glyphicon glyphicon-trash"></span><span className="text">Delete Post</span></span>
+  }
+
   if(props.comments){
     comments = props.comments.map(comment => {
       return (
@@ -36,27 +43,32 @@ const post = props => {
       <article className="Post">
         {authorImage}
         <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+        {editable}
+        {deletable}
         {imgSrc}
         <h3>{props.singlePost.title}</h3>
         <p className="postBody">{props.singlePost.post}</p>
         <div>{tag}</div>
         <hr />
-        <div><b>{props.comments.length + ' ' + commentTag}</b></div>
-        <br/>
-        {comments}
-        <hr />
-        
         <form>
           <div className="form-group">
             <textarea type="text" value={props.localComment} onChange={props.changed} rows="3" name="post" className="form-control"  placeholder="Write your comment..." />
           </div>
           <Button
-          style={{float: "right"}}
+          className="pull-right"
           bsStyle="primary"
           disabled={!props.localComment}
           onClick={props.submit}
         >Submit</Button>
         </form>
+        <hr style={{clear: "both"}}/>
+        
+        <div><b>{props.comments.length + ' ' + commentTag}</b></div>
+        <br/>
+        {comments}
+        <hr />
+        
+        
       </article>
       
     )

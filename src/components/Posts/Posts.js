@@ -32,7 +32,7 @@ const posts = props => {
         <h3>{props.singlePost.title}</h3>
         <p className="postBody">{props.singlePost.post}</p>
         <div>{tag}</div>
-        <hr />
+        <hr style={{clear: "both"}}/>
       </Link>
     </article>    
   )

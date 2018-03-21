@@ -26,6 +26,12 @@ const fetchCommentsSuccess = data => {
   }
 }
 
+export const clearPost = () => {
+  return {
+    type: types.CLEAR_POST
+  }
+}
+
 
 export const fetchPosts = () => {
 

@@ -23,6 +23,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         comments: action.data.comments
       }
+    case types.CLEAR_POST:
+      return {
+        ...state,
+        singlePost: null
+      }
     default: 
       return state
   }

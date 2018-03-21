@@ -2,6 +2,7 @@ export { fetchPosts,
           fetchPostById,
           editPost,
           deletePost,
+          clearPost,
           fetchComments,
           postComment,
           deleteComment } from './postActions';

@@ -46,7 +46,8 @@ class Post extends Component {
           localComment={this.state.comment.comment.body}
           changed={this.handleChange}
           submit={this.handleSubmit}
-          comments={this.props.comments} />
+          comments={this.props.comments}
+          user={this.props.user} />
       </div>
     );
   }
@@ -55,7 +56,8 @@ class Post extends Component {
 const mapStateToProps = state => {
   return {
     post: state.post.singlePost,
-    comments: state.post.comments
+    comments: state.post.comments,
+    user: state.auth.user
   }
 }
 
