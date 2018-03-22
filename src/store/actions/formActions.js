@@ -2,7 +2,6 @@ import axios from 'axios';
 
 import * as types from './actionTypes';
 import * as urls from '../helpers/http';
-import token from '../helpers/token';
 
 const setEditing = () => {
   return {
@@ -16,11 +15,23 @@ const resetEditing = () => {
   }
 }
 
-export const sendPosts = (data) => {
-  
+export const triggerPostEditing = () => {
+  return {
+    type: types.TRIGGER_EDITING
+  }
+}
+
+export const closePostEdit = () => {
+  return {
+    type: types.CLOSE_POST_EDITING
+  }
+}
+
+export const sendPosts = (data, token) => {
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
   console.log(data)
   return dispatch => {
-    axios.post(urls.postsUrl, data, token)
+    axios.post(urls.postsUrl, data, header)
     .then(response => {
       console.log("Response from api: ", response)
       triggerResetEditing()

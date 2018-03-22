@@ -10,15 +10,27 @@ import errorReducer from './reducers/errorReducer';
 const configureStore = () => {
   const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-  const rootReducer = combineReducers({
+  const appReducer = combineReducers({
     post: postReducer,
     form: formReducer,
     auth: authReducer,
     error: errorReducer
   });
 
-  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+  const rootReducer = (state, action) => {
+    if (action.type === 'AUTH_LOGOUT'){
+      console.log("AUTH LOGOUT FROM ROOT REDUCER")
+      state = undefined
+      console.log(state)
+    }
 
+    return appReducer(state, action)
+  }
+
+  const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)));
+  // store.dispatch({
+  //   type: 'RESET'
+  // })
   return store;
 }
 

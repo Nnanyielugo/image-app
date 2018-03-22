@@ -1,6 +1,5 @@
-import * as types from './actionTypes';
 import axios from 'axios';
-
+import * as types from './actionTypes';
 
 const authStart = () => {
   return {
@@ -82,7 +81,9 @@ export const login = form => {
       localStorage.setItem('imageSrc', response.data.user.imageSrc)
       console.log(response.data);
       dispatch(authSuccess(response.data))
+      checkAuthState()
     })
+    // .then( response => {dispatch(authSuccess(response.data))})
     .catch(error => {
       console.log(error.response.data.errors);
       dispatch(authFail(error.response.data.errors))

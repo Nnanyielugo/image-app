@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
 
 import * as actions from '../../store/actions/index';
 
@@ -55,10 +56,12 @@ class Login extends Component {
     user.user = this.state.user
     event.preventDefault()
     this.props.onLogin(user);
+    this.props.onCheckAuthState();
   }
 
   render() {
-    const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
+    const history = createHistory()
+    const loggedInRedirect = this.props.loggedIn ? history.goBack() : null;
     const error = this.props.error ? <div className="error">{this.props.error}</div> : null;
     return (
       
@@ -118,7 +121,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogin: (form) => dispatch(actions.login(form))
+    onLogin: (form) => dispatch(actions.login(form)),
+    onCheckAuthState: () => dispatch(actions.checkAuthState())
   }
 }
 

@@ -11,16 +11,21 @@ class Posts extends Component {
 
   componentDidMount() {
     console.log('[Posts] mounted');
-    this.props.onloadPosts();
+    const token = this.props.user ? this.props.user.token : null
+    this.props.onloadPosts(token);
     this.props.onCheckAuth();
   }
 
   render() {
+    let posts = <h3>There are no posts here...yet</h3>
+    if(this.props.fullPosts){
+      posts = this.props.fullPosts.map(post  => (
+        <Post key={post.slug} singlePost={post} />))
+    }
     return(
       <div>
         <div className="container main-post">
-          {this.props.fullPosts.map(post  => (
-          <Post key={post.slug} singlePost={post} />))}
+          {posts}
         </div>
         
       </div>
@@ -38,7 +43,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onloadPosts: () => dispatch(actions.fetchPosts()),
+    onloadPosts: (token) => dispatch(actions.fetchPosts(token)),
     onCheckAuth: () => dispatch(actions.checkAuthState())
   }
 }

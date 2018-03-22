@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Button, FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import { Redirect } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
+
 
 import * as actions from '../../store/actions/index';
 
@@ -124,7 +126,8 @@ class Signup extends Component {
   }
 
   render() {
-    const loggedInRedirect = this.props.loggedIn ? <Redirect to="/" /> : null;
+    const history = createHistory()
+    const loggedInRedirect = this.props.loggedIn ? history.goBack() : null;
     let {imagePreviewUrl} = this.state;
     let imagePreview = this.state.statusMsg;
 

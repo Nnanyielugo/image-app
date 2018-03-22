@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import SinglePost from '../../components/Post/Post';
 import * as actions from '../../store/actions/index';
@@ -14,21 +13,21 @@ class Post extends Component {
     }
   }
   componentWillMount() {
+    console.log("[will MOUNT]")
     this.props.onFetchPostById(this.props.match.params.id);
-    this.props.onCheckAuth();
     this.props.onFetchComments(this.props.match.params.id);
+    this.props.onCheckAuth();
   }
-
-  // componentWillUpdate()
 
   componentDidUpdate(){
     if(this.props.reload){
       this.props.onFetchComments(this.props.match.params.id);
-    }
+    }    
   }
 
   componentWillUnmount() {
-    this.props.onClearPost()
+    this.props.onClearPost();
+    this.props.closePostEdit()    
   }
 
   handleChange = (event) => {
@@ -39,13 +38,52 @@ class Post extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
-    console.log("[comment on enter", this.state.comment);
-    this.props.onPostComment(this.props.match.params.id, this.state.comment)
+    const token = this.props.user ? this.props.user.token : null;
+    this.props.onPostComment(this.props.match.params.id, this.state.comment, token)
     this.clear();
   }
 
   clear = () => {
     this.setState({comment: {comment: {body: ''}}})
+  }
+
+  onEdit = () => {
+    this.props.onTriggerEditing()
+  }
+
+  onPostEditable = (form) => {
+   const token = this.props.user ? this.props.user.token : null;
+   const id = this.props.match.params.id
+   this.props.postEdit(id, form, token);
+   setTimeout(() => {
+    this.props.onFetchPostById(id);
+   }, 500)
+  }
+
+  onPostDeletable = () => {
+    console.log('POST DELETABLE');
+    const token = this.props.user ? this.props.user.token : null;
+    const id = this.props.match.params.id
+    this.props.onDeletePost(id, token)
+    this.props.history.push('/');
+    setTimeout(() => {
+      this.props.onloadPosts(token);
+     }, 500)
+  }
+
+  onCommentDeletable = (id) => {
+    // this.props.onCheckAuth()
+    const slug = this.props.match.params.id
+    const token = this.props.user ? this.props.user.token : null;
+    this.props.commentDeletable(slug, id, token)
+  }
+
+  loginRedirect = () => {
+    this.props.history.push('/login')
+  }
+
+  resetEditable = () => {
+    this.props.closePostEdit()
   }
 
 
@@ -59,7 +97,14 @@ class Post extends Component {
           changed={this.handleChange}
           submit={this.handleSubmit}
           comments={this.props.comments}
-          user={this.props.user} />
+          user={this.props.user}
+          postForm={this.onPostEditable}
+          onPostDeletable={this.onPostDeletable}
+          onCommentDeletable={this.onCommentDeletable}
+          login={this.loginRedirect}
+          edit={this.onEdit}
+          formEditable={this.props.formEditable}
+          resetEditable={this.resetEditable} />
       </div>
     );
   }
@@ -70,17 +115,25 @@ const mapStateToProps = state => {
     post: state.post.singlePost,
     comments: state.post.comments,
     user: state.auth.user,
-    reload: state.post.reload
+    reload: state.post.reload,
+    loginRedirect: state.auth.loginRedirect,
+    formEditable: state.form.formEditable
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchPostById: (slug) => dispatch(actions.fetchPostById(slug)),
+    onloadPosts: (token) => dispatch(actions.fetchPosts(token)),
     onCheckAuth: () => dispatch(actions.checkAuthState()),
     onFetchComments: (slug) => dispatch(actions.fetchComments(slug)),
-    onPostComment: (slug, comment) => dispatch(actions.postComment(slug, comment)),
-    onClearPost: () => dispatch(actions.clearPost())
+    onPostComment: (slug, comment, token) => dispatch(actions.postComment(slug, comment, token)),
+    onClearPost: () => dispatch(actions.clearPost()),
+    commentDeletable: (slug, id, token) => dispatch(actions.deleteComment(slug, id, token)),
+    onTriggerEditing: () => dispatch(actions.triggerPostEditing()),
+    postEdit: (slug, data, token) => dispatch(actions.editPost(slug, data, token)),
+    closePostEdit: () => dispatch(actions.closePostEdit()),
+    onDeletePost: (slug, token) => dispatch(actions.deletePost(slug, token))
   }
 }
 

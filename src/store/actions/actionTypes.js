@@ -7,6 +7,8 @@ export const FETCH_COMMENTS = 'FETCH_COMMENTS';
 export const CLEAR_POST = 'CLEAR_POST';
 export const SET_RELOAD = 'SET_RELOAD';
 export const RESET_RELOAD = 'RESET_RELOAD';
+export const TRIGGER_EDITING = 'TRIGGER_EDITING';
+export const CLOSE_POST_EDITING = 'CLOSE_POST_EDITING';
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';

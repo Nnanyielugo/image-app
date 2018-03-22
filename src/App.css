@@ -25,6 +25,10 @@
  	height:100%;
 }
 
+.imgPrev {
+  height: 90%;
+}
+
 
 .main-post {
   display: flex;

@@ -10,7 +10,9 @@ export { fetchPosts,
 export { sendPosts, 
           triggerEditing, 
           triggerResetEditing,
-          triggerClearForm } from './formActions';
+          triggerClearForm,
+          triggerPostEditing,
+          closePostEdit } from './formActions';
 
 export { register,
           login,

@@ -20,7 +20,10 @@ const posts = props => {
   // if(props.singlePost.author.imageSrc) {
   //   authorImage = 
   // }
-
+let post = '';
+if (props.singlePost.post !== 'undefined'){
+  post = props.singlePost.post
+}
   
 
   return(
@@ -30,7 +33,7 @@ const posts = props => {
       <Link style={{ textDecoration: 'none', color: 'black' }} to={`/posts/${props.singlePost.slug}`}>
         {imgSrc}      
         <h3>{props.singlePost.title}</h3>
-        <p className="postBody">{props.singlePost.post}</p>
+        <p className="postBody">{post}</p>
         <div>{tag}</div>
         <hr style={{clear: "both"}}/>
       </Link>

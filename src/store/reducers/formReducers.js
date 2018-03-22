@@ -1,7 +1,8 @@
 import * as types from '../actions/actionTypes';
 
 const initialState = {
-  isEditing: false
+  isEditing: false,
+  formEditable: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -15,6 +16,16 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         isEditing: false
+      }
+    case types.TRIGGER_EDITING:
+      return {
+        ...state,
+        formEditable: true
+      }
+    case types.CLOSE_POST_EDITING:
+      return {
+        ...state,
+        formEditable: false
       }
     default:
       return state;

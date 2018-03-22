@@ -1,15 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import createHistory from 'history/createBrowserHistory'
 
 import * as actions from '../../store/actions/authActions';
+
 
 class Logout extends Component {
   componentDidMount(){
     this.props.onLogout()
+    const history = createHistory()
+    history.goBack()
   }
   render(){
-    return <Redirect to="/" />
+    return <div />
   }
 }
 

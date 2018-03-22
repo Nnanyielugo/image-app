@@ -4,6 +4,7 @@ import axios from 'axios';
 import _ from 'lodash';
 // import Dialog from 'material-ui/Dialog';
 import { Modal } from 'react-bootstrap'
+import createHistory from 'history/createBrowserHistory'
 
 import * as actions from '../../store/actions/index';
 // import Modal from '../../components/UI/Modal/Modal';
@@ -17,9 +18,10 @@ class Form extends Component {
       title: '',
       tagList: []      
     },
+    isFormValid: false,
     tag: '',
     imagePreviewUrl: '',
-    statusMsg: (<p>Click here to upload...</p>),
+    statusMsg: (<p style={{marginTop: 'auto', marginBottom: 'auto'}}>Click here to upload...</p>),
   }
 
   componentWillMount() {
@@ -34,10 +36,14 @@ class Form extends Component {
     }
 
     // console.log(this.state.postForm)
+    let formValid = false;
+    if(updatedPostForm.title !== ''){
+      formValid = true
+    }
     const field = event.target.name
     const form = updatedPostForm;
     form[field] = event.target.value;
-    return this.setState({postForm: form})
+    return this.setState({postForm: form, isFormValid: formValid})
   }
 
   handleImageChange = (e) => {
@@ -63,14 +69,18 @@ class Form extends Component {
   postForm = (event) => {
     event.preventDefault();
 
+    const history = createHistory()
+
     let data = new FormData()
     data.append('imgSrc', this.state.postForm.imgSrc)
     data.append('title', this.state.postForm.title)
     data.append('post', this.state.postForm.post)
     this.props.onResetEditing();
-    this.props.sendPostHandler(data);
+
+    const token = this.props.user ? this.props.user.token : null;
+    this.props.sendPostHandler(data, token);
     this.clearForm();
-    this.props.history.goBack();
+    history.goBack();
   }
 
   resetEditing = (e) => {
@@ -80,7 +90,8 @@ class Form extends Component {
   }
 
   postsHandler = () => {
-    this.props.loadPostsHandler()
+    const token = this.props.user? this.props.user.token : null;
+    this.props.loadPostsHandler(token)
   }
 
   clearForm = () => {
@@ -118,7 +129,7 @@ class Form extends Component {
               <label htmlFor="post">Post</label>
               <textarea type="text" rows="5" name="post" value={this.state.postForm.post} onChange={(event) => this.inputChangedHandler(event)} className="form-control"  placeholder="What's on your mind..." />
             </div>
-            <button type="submit" className="btn btn-primary" onClick={this.postForm}>Submit</button>
+            <button type="submit" className="btn btn-primary" onClick={this.postForm} disabled={!this.state.isFormValid}>Submit</button>
             <button type="cancel" className="btn btn-warning" id="btn" onClick={(e) => this.resetEditing(e)} >Cancel</button>
           </form>
        
@@ -130,14 +141,15 @@ class Form extends Component {
 
 const mapStateToProps = state => {
   return {
-    isEditing: state.form.isEditing
+    isEditing: state.form.isEditing,
+    user: state.auth.user
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    sendPostHandler: (data) => dispatch(actions.sendPosts(data)),
-    loadPostsHandler: () => dispatch(actions.fetchPosts()),
+    sendPostHandler: (data, token) => dispatch(actions.sendPosts(data, token)),
+    loadPostsHandler: (token) => dispatch(actions.fetchPosts(token)),
     onSetEditing: () => dispatch(actions.triggerEditing()),
     onResetEditing: () => dispatch(actions.triggerResetEditing()),
   }
