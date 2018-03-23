@@ -27,7 +27,7 @@ const navigation = props => {
       <div id="navbar" className="collapse navbar-collapse">
         <ul className="nav navbar-nav navbar-right">
           {props.loggedIn ? <li className="form-button" ><Link to="/status">Make Post</Link></li> : ''}
-          {props.loggedIn ? <li className="form-button" ><Link to={`/profile/${props.user.username}`}> <img className="avatar-nav" src={imageLink} /> <span id="avatar-nav">{username}</span></Link></li>: ''}
+          {props.loggedIn ? <li className="form-button" ><Link to={`/profiles/${props.user.username}`}> <img className="avatar-nav" src={imageLink} /> <span id="avatar-nav">{username}</span></Link></li>: ''}
           {!props.loggedIn ? <li className="form-button"><Link to="/login">Login</Link></li> :
           <li className="form-button"><Link to="/logout">Logout</Link></li>}
         </ul>

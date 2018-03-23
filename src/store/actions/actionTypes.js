@@ -4,7 +4,10 @@ export const LOAD_POST_BY_ID = 'LOAD_POST_BY_ID';
 export const RESET_EDITING = 'RESET_EDITING';
 export const SET_EDITING = 'SET_EDITING';
 export const FETCH_COMMENTS = 'FETCH_COMMENTS';
+export const MAKE_COMMENT = 'MAKE_COMMENT';
+
 export const CLEAR_POST = 'CLEAR_POST';
+
 export const SET_RELOAD = 'SET_RELOAD';
 export const RESET_RELOAD = 'RESET_RELOAD';
 export const TRIGGER_EDITING = 'TRIGGER_EDITING';

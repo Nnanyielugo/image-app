@@ -29,6 +29,16 @@ export const reducer = (state = initialState, action) => {
           following: false
         }
       }
+    case types.FOLLOW_USER:
+      return {
+        ...state,
+        profile: action.data.profile
+      }
+    case types.UNFOLLOW_USER:
+      return {
+        ...state,
+        profile: action.data.profile
+      }
     default:
       return state
   }

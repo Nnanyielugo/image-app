@@ -9,6 +9,20 @@ const loadProfileToState = data => {
   }
 }
 
+const setFollowInstate = (data) => {
+  return {
+    type: types.FOLLOW_USER,
+    data
+  }
+}
+
+const setUnFollowInState = (data) => {
+  return {
+    type: types.UNFOLLOW_USER,
+    data
+  }
+}
+
 export const clearProfileState = () => {
   return {
     type: types.CLEAR_PROFILE_STATE
@@ -35,6 +49,7 @@ export const follow = (username) => {
     axios.post(`${urls.profileUrl}/${username}/follow`, null, header)
       .then(response => {
         console.log(response)
+        dispatch(setFollowInstate(response.data))
       })
   }
 }
@@ -45,6 +60,7 @@ export const unfollow = (username) => {
   return dispatch => {
     axios.delete(`${urls.profileUrl}/${username}/follow`, header)
     .then(response => {
+      dispatch(setUnFollowInState(response.data))
       console.log(response)
     })
   }

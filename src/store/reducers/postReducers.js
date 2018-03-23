@@ -24,6 +24,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         comments: action.data.comments
       }
+    case types.MAKE_COMMENT:
+      return {
+        ...state,
+        comments: state.comments.concat(action.data.comment)
+      }
     case types.CLEAR_POST:
       return {
         ...state,

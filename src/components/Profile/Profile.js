@@ -38,7 +38,7 @@ const profile = props => {
           <div className="col-sm-12 col-md-1 col-lg-1">
             
           </div>
-          <div className="col-sm-12 col-md-3 col-lg-4">
+          <div className="col-sm-12 col-md-3 col-lg-4 details-container">
             <h1>{username}</h1>
             <div>{isOwnProfile ? <div>You have {props.profile.followerCount} {followerAttachment}</div> : <div><b>{username}</b> has {props.profile.followerCount} {followerAttachment}</div>}</div>
             {following}

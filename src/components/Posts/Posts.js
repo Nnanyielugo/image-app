@@ -9,11 +9,9 @@ const posts = props => {
   const authorImage = props.singlePost.author.imageSrc ? <img className="avatar" src={`http://localhost:5000/${props.singlePost.author.imageSrc}`} /> : null
 
   if (props.singlePost.imgSrc) {
-    imgSrc = (
-    <a target="_blank" href={imgSrc}>
-      <img className="img" src={`http://localhost:5000/${props.singlePost.imgSrc}`} alt={props.singlePost.author.username} />
-    </a>)
+    imgSrc =  <img className="img" src={`http://localhost:5000/${props.singlePost.imgSrc}`} alt={props.singlePost.author.username} />
   }
+  
   if(props.singlePost.tags) {
     tag = props.singlePost.tags.map(tag => {
       return <span id="tag" key={new Date}>{tag}</span>

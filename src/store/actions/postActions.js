@@ -31,6 +31,13 @@ const setReload = () => {
   }
 }
 
+const makeComment = data => {
+  return {
+    type: types.MAKE_COMMENT,
+    data
+  }
+}
+
 const resetReload = () => {
   return {
     type: types.RESET_RELOAD
@@ -127,7 +134,7 @@ export const postComment = (slug, comment, token) => {
     axios.post(`${urls.postsUrl}/${slug}/comments`, comment, header)
       .then(response => {
         console.log(response)
-        dispatch(setReload())
+        dispatch(makeComment(response.data))
       })
       .catch(error => {
         console.log(error)
