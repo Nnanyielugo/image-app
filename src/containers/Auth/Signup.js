@@ -151,7 +151,6 @@ class Signup extends Component {
         </div>
 
         <FormGroup
-          controlId="formBasicText"
           validationState={this.getUsernameValidationState()}
         >
           <ControlLabel>Username</ControlLabel>
@@ -165,7 +164,6 @@ class Signup extends Component {
         </FormGroup>
 
         <FormGroup
-          controlId="formBasicText"
           validationState={this.getEmailValidationState()}
         >
           <ControlLabel>Email</ControlLabel>
@@ -179,7 +177,6 @@ class Signup extends Component {
         </FormGroup>
 
         <FormGroup
-          controlId="formBasicText"
           validationState={this.getPasswordValidationState()}
         >
           <ControlLabel>Password</ControlLabel>

@@ -34,6 +34,10 @@ class Posts extends Component {
      }, 500)
   }
 
+  loginRedirect = () => {
+    this.props.history.push('/login')
+  }
+
 
   render() {
     let posts = <h3>There are no posts here...yet</h3>
@@ -43,7 +47,9 @@ class Posts extends Component {
             key={post.slug} 
             singlePost={post}
             like={this.like}
-            unlike={this.unlike} />))
+            unlike={this.unlike}
+            user={this.props.user}
+            loginRedirect={this.loginRedirect} />))
     }
     return(
       <div>

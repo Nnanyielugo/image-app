@@ -70,7 +70,6 @@ class Login extends Component {
         <div className="center-div"><h3>LOGIN FORM</h3></div>
         {error}
         <FormGroup
-          controlId="formBasicText"
           validationState={this.getEmailValidationState()}
         >
           <ControlLabel>Email</ControlLabel>
@@ -85,7 +84,6 @@ class Login extends Component {
           
         </FormGroup>
         <FormGroup
-          controlId="formBasicText"
           validationState={this.getPasswordValidationState()}
         >
           <ControlLabel>Password</ControlLabel>

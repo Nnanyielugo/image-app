@@ -51,6 +51,57 @@
   cursor: pointer;
 }
 
+.no-user span {
+  font-size: 18px;
+  margin-left: 4px;
+}
+
+.no-user .tooltip {
+  visibility: hidden;
+  width: 100px;
+  background-color: rgb(139, 137, 137);
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+  font-style: italic;
+
+  /* Position the tooltip text */
+  position: absolute;
+  z-index: 1;
+  top: 125%;
+  left: 50%;
+  margin-left: -60px;
+
+  /* Fade in tooltip */
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+/* .no-user .tooltip::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 3px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+} */
+
+.no-user:hover .tooltip{
+  visibility: visible;
+  opacity: 0.7;
+}
+
+.no-user {
+  float: right;
+  /* border: 1px solid rgb(167, 32, 32); */
+  border-radius: 4px;
+  padding: 3px;
+  cursor: pointer;
+}
+
 .no-like span {
   font-size: 18px;
   margin-left: 4px;
