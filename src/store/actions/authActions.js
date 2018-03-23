@@ -108,3 +108,19 @@ export const checkAuthState = () => {
     }
   }
 }
+
+export const fetchCurrentUser = () => {
+  const token = localStorage.getItem('token')
+  console.log("[[[USER TOKEN]]] :", token)
+
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  return dispatch => {
+    axios.get('http://localhost:5000/api/users/user', header)
+      .then(response => {
+        console.log("CURRENT USER: ", response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}

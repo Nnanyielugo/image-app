@@ -10,6 +10,9 @@ export const RESET_RELOAD = 'RESET_RELOAD';
 export const TRIGGER_EDITING = 'TRIGGER_EDITING';
 export const CLOSE_POST_EDITING = 'CLOSE_POST_EDITING';
 
+export const LIKE_POST = 'LIKE_POST';
+export const UNLIKE_POST = 'UNLIKE_POST';
+
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
 export const AUTH_FAIL = 'AUTH_FAIL';

@@ -30,10 +30,13 @@ if (props.singlePost.post !== 'undefined'){
     <article className="Posts">
       {authorImage}
       <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+      {!props.singlePost.favorited ? <span onClick={(slug)=>props.like(props.singlePost.slug)} className="no-like glyphicon glyphicon-heart-empty"><span>{props.singlePost.favoritesCount}</span></span> :
+      <span onClick={(slug)=>props.unlike(props.singlePost.slug)} className="like glyphicon glyphicon-heart"><span>{props.singlePost.favoritesCount}</span></span>}
       <Link style={{ textDecoration: 'none', color: 'black' }} to={`/posts/${props.singlePost.slug}`}>
         {imgSrc}      
         <h3>{props.singlePost.title}</h3>
         <p className="postBody">{post}</p>
+        <i>read more...</i>
         <div>{tag}</div>
         <hr style={{clear: "both"}}/>
       </Link>

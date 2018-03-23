@@ -5,7 +5,9 @@ export { fetchPosts,
           clearPost,
           fetchComments,
           postComment,
-          deleteComment } from './postActions';
+          deleteComment,
+          favPost,
+          unfavPost } from './postActions';
 
 export { sendPosts, 
           triggerEditing, 
@@ -17,4 +19,5 @@ export { sendPosts,
 export { register,
           login,
           checkAuthState,
-          logout } from './authActions';
+          logout,
+          fetchCurrentUser } from './authActions';

@@ -43,6 +43,25 @@ class Post extends Component {
     this.clear();
   }
 
+
+
+  like = (slug) => {
+    const token = this.props.user ? this.props.user.token : null
+    this.props.onLike(slug, token)
+    setTimeout(() => {
+      this.props.onFetchPostById(this.props.match.params.id);
+     }, 500)
+  }
+
+  unlike = (slug) => {
+    const token = this.props.user ? this.props.user.token : null
+    this.props.onUnLike(slug, token)
+    setTimeout(() => {
+      this.props.onFetchPostById(this.props.match.params.id);
+     }, 500)
+  }
+
+
   clear = () => {
     this.setState({comment: {comment: {body: ''}}})
   }
@@ -61,13 +80,12 @@ class Post extends Component {
   }
 
   onPostDeletable = () => {
-    console.log('POST DELETABLE');
     const token = this.props.user ? this.props.user.token : null;
     const id = this.props.match.params.id
     this.props.onDeletePost(id, token)
     this.props.history.push('/');
     setTimeout(() => {
-      this.props.onloadPosts(token);
+      this.props.onloadPosts();
      }, 500)
   }
 
@@ -104,7 +122,9 @@ class Post extends Component {
           login={this.loginRedirect}
           edit={this.onEdit}
           formEditable={this.props.formEditable}
-          resetEditable={this.resetEditable} />
+          resetEditable={this.resetEditable}
+          like={this.like}
+          unlike={this.unlike} />
       </div>
     );
   }
@@ -133,7 +153,9 @@ const mapDispatchToProps = dispatch => {
     onTriggerEditing: () => dispatch(actions.triggerPostEditing()),
     postEdit: (slug, data, token) => dispatch(actions.editPost(slug, data, token)),
     closePostEdit: () => dispatch(actions.closePostEdit()),
-    onDeletePost: (slug, token) => dispatch(actions.deletePost(slug, token))
+    onDeletePost: (slug, token) => dispatch(actions.deletePost(slug, token)),
+    onLike: (slug, token) => dispatch(actions.favPost(slug, token)),
+    onUnLike: (slug, token) => dispatch(actions.unfavPost(slug, token))
   }
 }
 

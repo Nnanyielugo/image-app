@@ -43,6 +43,45 @@
   margin-bottom: 10px;
 }
 
+.no-like {
+  float: right;
+  border: 1px solid rgb(167, 32, 32);
+  border-radius: 4px;
+  padding: 3px;
+  cursor: pointer;
+}
+
+.no-like span {
+  font-size: 18px;
+  margin-left: 4px;
+}
+
+.no-like:hover {
+  background-color: rgb(167, 32, 32);
+  color: white;
+}
+
+.Posts i {
+  color: gray;
+}
+
+.like {
+  float: right;
+  border-radius: 4px;
+  padding: 3px;
+  color:  rgb(167, 32, 32);
+  cursor: pointer;
+}
+
+.like span {
+  font-size: 18px;
+  margin-left: 4px;
+}
+
+.like:hover {
+  border: 1px solid rgb(167, 32, 32);
+}
+
 #tag {
   margin-top: 4px;
   float: right;

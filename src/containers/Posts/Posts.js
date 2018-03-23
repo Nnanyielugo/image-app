@@ -11,16 +11,39 @@ class Posts extends Component {
 
   componentDidMount() {
     console.log('[Posts] mounted');
-    const token = this.props.user ? this.props.user.token : null
-    this.props.onloadPosts(token);
+    this.props.onloadPosts();
     this.props.onCheckAuth();
+    this.props.onFetchCurrentUser()
   }
+
+  like = (slug) => {
+    console.log("[LIKED POST", slug)
+    const token = this.props.user ? this.props.user.token : null
+    this.props.onLike(slug, token)
+    setTimeout(() => {
+      this.props.onloadPosts();
+     }, 500)
+  }
+
+  unlike = (slug) => {
+    console.log("[UNLIKED POST]", slug)
+    const token = this.props.user ? this.props.user.token : null
+    this.props.onUnLike(slug, token)
+    setTimeout(() => {
+      this.props.onloadPosts();
+     }, 500)
+  }
+
 
   render() {
     let posts = <h3>There are no posts here...yet</h3>
     if(this.props.fullPosts){
       posts = this.props.fullPosts.map(post  => (
-        <Post key={post.slug} singlePost={post} />))
+        <Post 
+            key={post.slug} 
+            singlePost={post}
+            like={this.like}
+            unlike={this.unlike} />))
     }
     return(
       <div>
@@ -43,8 +66,11 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onloadPosts: (token) => dispatch(actions.fetchPosts(token)),
-    onCheckAuth: () => dispatch(actions.checkAuthState())
+    onFetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
+    onloadPosts: () => dispatch(actions.fetchPosts()),
+    onCheckAuth: () => dispatch(actions.checkAuthState()),
+    onLike: (slug, token) => dispatch(actions.favPost(slug, token)),
+    onUnLike: (slug, token) => dispatch(actions.unfavPost(slug, token))
   }
 }
 

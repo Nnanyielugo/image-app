@@ -45,10 +45,12 @@ export const clearPost = () => {
 
 /**  ASYNC ACTIONS(thunks) */
 
-export const fetchPosts = (token) => {
+export const fetchPosts = () => {
+  const token = localStorage.getItem('token')
   const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  console.log("[REQ token", token)
   return dispatch => {
-    axios.get(urls.postsUrl, token)
+    axios.get(urls.postsUrl, header)
     .then(response => {
       console.log("[posts]: ", response.data)
       dispatch(loadPosts(response.data))
@@ -59,12 +61,13 @@ export const fetchPosts = (token) => {
   }
 }
 
-export const fetchPostById = (slug, token) => {
+export const fetchPostById = (slug) => {
+  const token = localStorage.getItem('token')
   const header = token ? { headers: { Authorization: "Bearer " + token} } : null
   return dispatch => {
-    axios.get(`${urls.postsUrl}/${slug}`, token)
+    axios.get(`${urls.postsUrl}/${slug}`, header)
       .then(response => {
-        console.log(response.data.post)
+        console.log("[[POST BY ID]] : ", response.data.post)
         dispatch(loadPostById(response.data.post))
       })
       .catch(error => {
@@ -74,9 +77,7 @@ export const fetchPostById = (slug, token) => {
 }
 
 export const editPost = (slug, data, token) => {
-  for (var value of data.values()) {
-    console.log("[EDITED ACTIONS Data]: ", value); 
- }
+
   const header = token ? { headers: { Authorization: "Bearer " + token} } : null
   return dispatch => {
     axios.put(`${urls.postsUrl}/${slug}`, data, header)
@@ -118,6 +119,7 @@ export const fetchComments = (slug, token) => {
 }
 
 export const postComment = (slug, comment, token) => {
+  console.log(token)
   const header = token ? { headers: { Authorization: "Bearer " + token} } : null
   return dispatch => {
     console.log("[COMMENT]", comment)
@@ -140,6 +142,35 @@ export const deleteComment = (slug, id, token) => {
       .then(response => {
         console.log(response)
         dispatch(setReload())
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+export const favPost = (slug, token) => {
+  console.log(token)
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  // const header = token ?  : null
+  // console.log(header)
+  return dispatch => {
+    axios.post(`${urls.postsUrl}/${slug}/favorite`, null, header)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+export const unfavPost = (slug, token) => {
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  return dispatch => {
+    axios.delete(`${urls.postsUrl}/${slug}/favorite`, header)
+      .then(response => {
+        console.log(response)
       })
       .catch(error => {
         console.log(error)
