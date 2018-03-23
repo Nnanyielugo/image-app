@@ -2,24 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 import './Posts.css';
-import profile from '../../assets/profile-placeholder-03.jpeg'
 
 const posts = props => {
   let imgSrc = null;
   let tag = null;
-  const authorImage = props.singlePost.author.imageSrc ? <img className="avatar" src={`http://localhost:5000/${props.singlePost.author.imageSrc}`} /> : <img className="avatar" src={profile} />
+  const authorImage = props.singlePost.author.imageSrc ? <img className="avatar" src={`http://localhost:5000/${props.singlePost.author.imageSrc}`} /> : null
 
   if (props.singlePost.imgSrc) {
-    imgSrc = <img className="img" src={`http://localhost:5000/${props.singlePost.imgSrc}`} />
+    imgSrc = (
+    <a target="_blank" href={imgSrc}>
+      <img className="img" src={`http://localhost:5000/${props.singlePost.imgSrc}`} alt={props.singlePost.author.username} />
+    </a>)
   }
   if(props.singlePost.tags) {
     tag = props.singlePost.tags.map(tag => {
       return <span id="tag" key={new Date}>{tag}</span>
     })
   }
-  // if(props.singlePost.author.imageSrc) {
-  //   authorImage = 
-  // }
+
 let post = '';
 if (props.singlePost.post !== 'undefined'){
   post = props.singlePost.post
@@ -34,8 +34,10 @@ if(props.user){
 
   return(
     <article className="Posts">
-      {authorImage}
-      <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+      <Link style={{ textDecoration: 'none', color: 'black'}} to={`/profiles/${props.singlePost.author.username}`}>
+        {authorImage}
+        <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+      </Link>
       {favTag}
       <Link style={{ textDecoration: 'none', color: 'black' }} to={`/posts/${props.singlePost.slug}`}>
         {imgSrc}      

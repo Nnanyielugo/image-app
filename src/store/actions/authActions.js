@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import * as types from './actionTypes';
+import * as urls from '../helpers/http';
 
 const authStart = () => {
   return {
@@ -52,7 +54,7 @@ export const register = form => {
 
   return dispatch => {
     dispatch(authStart())
-    axios.post('http://localhost:5000/api/users', form)
+    axios.post(urls.authUrl, form)
       .then(response => {
         localStorage.setItem('token', response.data.user.token);
         localStorage.setItem('id', response.data.user.id);
@@ -72,7 +74,7 @@ export const register = form => {
 export const login = form => {
   return dispatch => {
     dispatch(authStart())
-    axios.post('http://localhost:5000/api/users/login', form)
+    axios.post(`${urls.authUrl}/login`, form)
     .then(response => {
       localStorage.setItem('token', response.data.user.token);
       localStorage.setItem('id', response.data.user.id);
@@ -110,17 +112,17 @@ export const checkAuthState = () => {
 }
 
 export const fetchCurrentUser = () => {
-  const token = localStorage.getItem('token')
-  console.log("[[[USER TOKEN]]] :", token)
+  // const token = localStorage.getItem('token')
+  // console.log("[[[USER TOKEN]]] :", token)
 
-  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
-  return dispatch => {
-    axios.get('http://localhost:5000/api/users/user', header)
-      .then(response => {
-        console.log("CURRENT USER: ", response)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-  }
+  // const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  // return dispatch => {
+  //   axios.get(`${urls.authUrl}/user`, header)
+  //     .then(response => {
+  //       console.log("CURRENT USER: ", response)
+  //     })
+  //     .catch(error => {
+  //       console.log(error)
+  //     })
+  // }
 }

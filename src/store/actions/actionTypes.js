@@ -19,3 +19,9 @@ export const AUTH_FAIL = 'AUTH_FAIL';
 export const SIGNUP_ERROR = 'SIGNUP_ERROR';
 export const AUTH_LOGOUT = 'AUTH_LOGOUT';
 export const AUTHENTICATED = 'AUTHENTICATED';
+
+
+export const LOAD_PROFILE_BY_ID = 'LOAD_PROFILE_BY_ID';
+export const CLEAR_PROFILE_STATE = 'CLEAR_PROFILE_STATE';
+export const FOLLOW_USER = 'FOLLOW_USER';
+export const UNFOLLOW_USER = 'UNFOLLOW_USER';

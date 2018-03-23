@@ -21,3 +21,8 @@ export { register,
           checkAuthState,
           logout,
           fetchCurrentUser } from './authActions';
+
+export { loadProfileById,
+          clearProfileState,
+          follow,
+          unfollow } from './profileActions';

@@ -12,8 +12,8 @@ class Post extends Component {
       }
     }
   }
-  componentWillMount() {
-    console.log("[will MOUNT]")
+  componentDidMount() {
+    console.log("[DID MOUNT]")
     this.props.onFetchPostById(this.props.match.params.id);
     this.props.onFetchComments(this.props.match.params.id);
     this.props.onCheckAuth();
@@ -33,7 +33,6 @@ class Post extends Component {
   handleChange = (event) => {
     event.preventDefault();
     this.setState({comment: {comment: {body: event.target.value}}})
-    console.log(this.state)
   }
 
   handleSubmit = (event) => {

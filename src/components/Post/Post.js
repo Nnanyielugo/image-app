@@ -1,5 +1,4 @@
 import React from 'react';
-import profile from '../../assets/profile-placeholder-03.jpeg'
 import { Button } from 'react-bootstrap';
 import marked from 'marked';
 
@@ -17,7 +16,7 @@ const post = props => {
     }
   if (props.singlePost){
     const imgSrc = `http://localhost:5000/${props.singlePost.imgSrc}`
-    const authorImage = props.singlePost.author.imageSrc ? <img className="avatar" src={`http://localhost:5000/${props.singlePost.author.imageSrc}`} /> : <img className="avatar" src={profile} />
+    const authorImage = props.singlePost.author.imageSrc ? <img className="avatar" src={`http://localhost:5000/${props.singlePost.author.imageSrc}`} /> : ''
     const tag = props.singlePost.tags.map(tag => {
       return <span id="tag" key={new Date}>{tag}</span>
     });   
@@ -38,7 +37,7 @@ const post = props => {
       }
       return (
         <div key={comment.id}>
-          {comment.author.imageSrc ? <img className="avatar-comment" src={`http://localhost:5000/${comment.author.imageSrc}`} /> : <img className="avatar" src={profile} />}
+          {comment.author.imageSrc ? <img className="avatar-comment" src={`http://localhost:5000/${comment.author.imageSrc}`} /> : ''}
           <span><b>{comment.author.username.charAt(0).toUpperCase() + comment.author.username.slice(1)}</b></span>
           {deletableComment}
           <div className="comment-body" dangerouslySetInnerHTML={markup}></div>
@@ -66,7 +65,9 @@ const post = props => {
         {favTag}
         {editable}
         {deletable}
-        <img className="img" src={imgSrc} />
+        <a target="_blank" href={imgSrc}>
+          <img className="img" src={imgSrc} alt={props.singlePost.author.username} />
+        </a>
         <h3>{props.singlePost.title}</h3>
         <p className="postBody">{post}</p>
         <div>{tag}</div>

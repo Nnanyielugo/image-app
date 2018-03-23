@@ -1,0 +1,75 @@
+.page-container {
+  background-color: whitesmoke;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  margin-top: 40px;
+  box-sizing: border-box;
+}
+
+.profile-container { 
+  
+}
+
+.image-container {
+  box-sizing: border-box;
+  padding: 5px;
+}
+
+.page-container .profile-container img {
+  border-radius: 14px;
+  padding: 5px;
+  width: 350px; 
+  max-width: 350px;
+  max-height: 300px
+}
+
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
+
+.follow {
+  border: solid 1px rgb(3, 85, 3);
+  margin-right: 45px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.follow .follow-icon {
+  color: rgb(3, 85, 3);
+  margin-left: 3px;
+}
+
+.follow:hover {
+  background-color:  rgb(3, 85, 3);
+  color: whitesmoke;
+}
+
+.follow:hover .follow-icon {
+  color: whitesmoke;
+}
+
+.unfollow {
+  border: solid 1px rgb(134, 1, 1);
+  margin-right: 42px;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.unfollow .unfollow-icon {
+  color: rgb(134, 1, 1);
+  margin-left: 3px;
+}
+
+.unfollow:hover {
+  background-color: rgb(134, 1, 1);
+  color: whitesmoke;
+}
+
+.unfollow:hover .unfollow-icon {
+  color: whitesmoke;
+}
+
+.following {
+  margin-top: 10px;
+}

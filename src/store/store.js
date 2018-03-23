@@ -5,6 +5,7 @@ import postReducer from './reducers/postReducers';
 import formReducer from './reducers/formReducers';
 import authReducer from './reducers/authReducer';
 import errorReducer from './reducers/errorReducer';
+import profileReducer from './reducers/profileReducer';
 
 /**Returns the application store */
 const configureStore = () => {
@@ -14,7 +15,8 @@ const configureStore = () => {
     post: postReducer,
     form: formReducer,
     auth: authReducer,
-    error: errorReducer
+    error: errorReducer,
+    profiles: profileReducer
   });
 
   const rootReducer = (state, action) => {

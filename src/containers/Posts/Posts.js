@@ -10,10 +10,9 @@ import * as actions from '../../store/actions/index'
 class Posts extends Component {
 
   componentDidMount() {
-    console.log('[Posts] mounted');
     this.props.onloadPosts();
     this.props.onCheckAuth();
-    this.props.onFetchCurrentUser()
+    // this.props.onFetchCurrentUser()
   }
 
   like = (slug) => {
@@ -72,7 +71,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
+    // onFetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
     onloadPosts: () => dispatch(actions.fetchPosts()),
     onCheckAuth: () => dispatch(actions.checkAuthState()),
     onLike: (slug, token) => dispatch(actions.favPost(slug, token)),
