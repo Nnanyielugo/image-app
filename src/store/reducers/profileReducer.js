@@ -8,7 +8,9 @@ const initialState = {
     followers: [],
     imageSrc: '',
     following: false
-  }
+  },
+  posts: [],
+  postsCount: 0
 }
 
 export const reducer = (state = initialState, action) => {
@@ -27,7 +29,15 @@ export const reducer = (state = initialState, action) => {
           followers: [],
           imageSrc: '',
           following: false
-        }
+        }, 
+        posts: [],
+        postsCount: 0
+      }
+    case types.LOAD_POST_OF_PROFILE: 
+      return{
+        ...state,
+        posts: action.data.posts,
+        postsCount: action.data.postsCount
       }
     case types.FOLLOW_USER:
       return {

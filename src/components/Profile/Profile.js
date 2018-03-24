@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Profile.css';
+import Post from '../Posts/Posts';
 
 const profile = props => {
   const username = props.profile.username ? props.profile.username.charAt(0).toUpperCase() + props.profile.username.slice(1) : '';
@@ -14,6 +15,13 @@ const profile = props => {
     }
   }
 
+  let postAttachment = 'posts';
+  if(props.profile){
+    if(props.profilePostsCount === 1){
+      postAttachment = 'post'
+    }
+  }
+
   if(props.user){
     isOwnProfile = props.user && props.user.username === props.profile.username;
     if(!isOwnProfile){
@@ -24,10 +32,22 @@ const profile = props => {
       }
     }
   }
+
+  let posts = <h3>{isOwnProfile ? <small>You do not have any posts...yet</small> : <small>{username} &nbsp; does not have any posts...yet</small>}</h3>
+    if(props.profilePosts){
+      posts = props.profilePosts.map(post  => (
+        <Post 
+            key={post.slug} 
+            singlePost={post}
+            like={props.like}
+            unlike={props.unlike}
+            user={props.user}
+            loginRedirect={props.loginRedirect} />))
+      }
   
   
   return(
-    <div className="main-post container">
+    <div className="container top-spacing-profile">
       <div className="page-container">
         <div className="row profile-container">
           <div className="col-sm-12 col-md-8 col-lg-8 image-container">
@@ -40,12 +60,13 @@ const profile = props => {
           </div>
           <div className="col-sm-12 col-md-3 col-lg-4 details-container">
             <h1>{username}</h1>
-            <div>{isOwnProfile ? <div>You have {props.profile.followerCount} {followerAttachment}</div> : <div><b>{username}</b> has {props.profile.followerCount} {followerAttachment}</div>}</div>
+            <div className="following">{isOwnProfile ? <div className="following">You have {props.profile.followerCount} {followerAttachment}</div> : <div><b>{username}</b> has {props.profile.followerCount} {followerAttachment}</div>}</div>
             {following}
           </div>
-        </div>
-        
+        </div>  
+        {isOwnProfile ? <h3>You have made {props.profilePostsCount} {postAttachment}</h3> : <h3><b>{username} &nbsp;</b>has made {props.profilePostsCount} {postAttachment}</h3>}
       </div>
+      <div className="center-div">{posts}</div>
 
      
     </div>

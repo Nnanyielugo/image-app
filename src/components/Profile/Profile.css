@@ -7,9 +7,9 @@
   box-sizing: border-box;
 }
 
-.profile-container { 
+/* .profile-container { 
   
-}
+} */
 
 .image-container {
   box-sizing: border-box;
@@ -21,7 +21,8 @@
   padding: 5px;
   width: 350px; 
   max-width: 350px;
-  max-height: 300px
+  max-height: 300px;
+  display: inline-block;
 }
 
 .details-container {
@@ -34,7 +35,7 @@ img:hover {
 
 .follow {
   border: solid 1px rgb(3, 85, 3);
-  margin-right: 20px;
+  margin-right: auto;
   margin-top: 10px;
   cursor: pointer;
 }
@@ -55,7 +56,7 @@ img:hover {
 
 .unfollow {
   border: solid 1px rgb(134, 1, 1);
-  margin-right: 13px;
+  margin-right: auto;
   margin-top: 10px;
   cursor: pointer;
 }
@@ -76,4 +77,5 @@ img:hover {
 
 .following {
   margin-top: 10px;
+  margin-right: 13px;
 }

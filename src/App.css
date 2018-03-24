@@ -100,6 +100,12 @@
   margin-top: 65px;
 }
 
+.top-spacing-profile {
+  margin-top: 50px;
+  width: 630px;
+  max-width: 630px;
+}
+
 .Auth {
   width: 35%;
   background-color: whitesmoke;

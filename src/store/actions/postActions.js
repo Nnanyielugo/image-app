@@ -3,6 +3,9 @@ import axios from 'axios';
 import * as types from './actionTypes';
 import * as urls from '../helpers/http';
 
+const encode = encodeURIComponent;
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+
 
 const loadPosts = data => {
   return {
@@ -54,12 +57,10 @@ export const clearPost = () => {
 
 export const fetchPosts = () => {
   const token = localStorage.getItem('token')
-  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
-  console.log("[REQ token", token)
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null;
   return dispatch => {
     axios.get(urls.postsUrl, header)
     .then(response => {
-      console.log("[posts]: ", response.data)
       dispatch(loadPosts(response.data))
     })
     .catch(error => {
@@ -74,7 +75,6 @@ export const fetchPostById = (slug) => {
   return dispatch => {
     axios.get(`${urls.postsUrl}/${slug}`, header)
       .then(response => {
-        console.log("[[POST BY ID]] : ", response.data.post)
         dispatch(loadPostById(response.data.post))
       })
       .catch(error => {
@@ -89,7 +89,7 @@ export const editPost = (slug, data, token) => {
   return dispatch => {
     axios.put(`${urls.postsUrl}/${slug}`, data, header)
       .then(response => {
-        console.log(response)
+        // console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -102,7 +102,7 @@ export const deletePost = (slug, token) => {
   return dispatch => {
     axios.delete(`${urls.postsUrl}/${slug}`, header)
       .then(response => {
-        console.log(response)
+        // console.log(response)
       })
       .catch(error => {
         console.log(error)
@@ -115,7 +115,6 @@ export const fetchComments = (slug, token) => {
   return dispatch => {
     axios.get(`${urls.postsUrl}/${slug}/comments`, token)
       .then(response => {
-        console.log(response.data);
         dispatch(fetchCommentsSuccess(response.data))
         dispatch(resetReload())
       })
@@ -129,8 +128,6 @@ export const postComment = (slug, comment, token) => {
   console.log(token)
   const header = token ? { headers: { Authorization: "Bearer " + token} } : null
   return dispatch => {
-    console.log("[COMMENT]", comment)
-    // dispatch(resetReload())
     axios.post(`${urls.postsUrl}/${slug}/comments`, comment, header)
       .then(response => {
         console.log(response)
@@ -158,9 +155,7 @@ export const deleteComment = (slug, id, token) => {
 
 export const favPost = (slug, token) => {
   console.log(token)
-  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
-  // const header = token ?  : null
-  // console.log(header)
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null;
   return dispatch => {
     axios.post(`${urls.postsUrl}/${slug}/favorite`, null, header)
       .then(response => {

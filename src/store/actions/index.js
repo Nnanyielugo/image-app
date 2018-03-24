@@ -23,6 +23,7 @@ export { register,
           fetchCurrentUser } from './authActions';
 
 export { loadProfileById,
+          fetchPostsOfUsername,
           clearProfileState,
           follow,
           unfollow } from './profileActions';

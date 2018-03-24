@@ -2,9 +2,19 @@ import axios from 'axios';
 import * as urls from '../helpers/http';
 import * as types from './actionTypes';
 
+const encode = encodeURIComponent;
+const limit = (count, p) => `limit=${count}&offset=${p ? p * count : 0}`;
+
 const loadProfileToState = data => {
   return {
     type: types.LOAD_PROFILE_BY_ID,
+    data
+  }
+}
+
+const loadPostsOfUsernameToState = data => {
+  return {
+    type: types.LOAD_POST_OF_PROFILE,
     data
   }
 }
@@ -38,6 +48,22 @@ export const loadProfileById = id => {
       .then(response => {
         console.log(response.data)
         dispatch(loadProfileToState(response.data))
+      })
+  }
+}
+
+export const fetchPostsOfUsername = (username) => {
+  console.log("USERNAME: ", username)
+  const token = localStorage.getItem('token');
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null;
+  return dispatch => {
+    axios.get(`${urls.postsUrl}?author=${encode(username)}`, header)
+      .then(response => {
+        console.log(response.data)
+        dispatch(loadPostsOfUsernameToState(response.data))
+      })
+      .catch(error => {
+        console.log(error)
       })
   }
 }
