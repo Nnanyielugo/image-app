@@ -22,7 +22,7 @@ class App extends Component {
           <Route path="/status" component={Form} />
           <Route path="/logout" component={Logout} />
           <Route path="/posts/:id" component={Post} />
-          <Route path="/profiles/:id" component={Profile} />
+          <Route path="/profiles/:id" exact component={Profile} />
           <Route path="/" exact component={Posts} />
           <Redirect to="/" />
         </Switch>

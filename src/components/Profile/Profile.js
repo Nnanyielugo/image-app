@@ -26,9 +26,9 @@ const profile = props => {
     isOwnProfile = props.user && props.user.username === props.profile.username;
     if(!isOwnProfile){
       if(props.profile.following === false){
-        following = <div className="follow" onClick={(username) => props.follow(props.profile.username)}><span className="glyphicon glyphicon-plus follow-icon"></span>&nbsp;Follow <b>{username}</b></div>
+        following = <div><span className="follow" onClick={(username) => props.follow(props.profile.username)}><span className="glyphicon glyphicon-plus follow-icon"></span>&nbsp;Follow </span> &nbsp;<b>{username}</b></div>
       } else {
-        following = <div><div className="following">You are following&nbsp;<b>{username}</b></div> <div className="unfollow" onClick={(username) => props.unfollow(props.profile.username)}><span className="glyphicon glyphicon-remove unfollow-icon"></span>&nbsp;Unfollow <b>{username}</b></div></div>
+        following = <div><div className="following">You are following&nbsp;<b>{username}</b></div> <span className="unfollow" onClick={(username) => props.unfollow(props.profile.username)}><span className="glyphicon glyphicon-remove unfollow-icon"></span>&nbsp;Unfollow </span>&nbsp;<b>{username}</b></div>
       }
     }
   }
@@ -50,21 +50,19 @@ const profile = props => {
     <div className="container top-spacing-profile">
       <div className="page-container">
         <div className="row profile-container">
-          <div className="col-sm-12 col-md-8 col-lg-8 image-container">
+          <div className="col-sm-12 col-md-7 col-lg-7 image-container">
             <a target="_blank" href={imageSrc}>
               <img src={imageSrc} alt={props.profile.username} />
             </a>
           </div>
-          <div className="col-sm-12 col-md-1 col-lg-1">
             
-          </div>
-          <div className="col-sm-12 col-md-3 col-lg-4 details-container">
+          <div className="col-sm-12 col-md-5 col-lg-5 details-container">
             <h1>{username}</h1>
             <div className="following">{isOwnProfile ? <div className="following">You have {props.profile.followerCount} {followerAttachment}</div> : <div><b>{username}</b> has {props.profile.followerCount} {followerAttachment}</div>}</div>
             {following}
           </div>
         </div>  
-        {isOwnProfile ? <h3>You have made {props.profilePostsCount} {postAttachment}</h3> : <h3><b>{username} &nbsp;</b>has made {props.profilePostsCount} {postAttachment}</h3>}
+        {isOwnProfile ? <h3 style={{textAlign: 'center'}} >You have made {props.profilePostsCount} {postAttachment}:</h3> : <h3 style={{textAlign: 'center'}}><b>{username} &nbsp;</b>has made {props.profilePostsCount} {postAttachment}:</h3>}
       </div>
       <div className="center-div">{posts}</div>
 

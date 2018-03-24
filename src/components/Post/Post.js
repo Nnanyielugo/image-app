@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import marked from 'marked';
+import { Link } from 'react-router-dom';
 
 import './Post.css';
 import EditForm from './Form';
@@ -37,8 +38,10 @@ const post = props => {
       }
       return (
         <div key={comment.id}>
-          {comment.author.imageSrc ? <img className="avatar-comment" src={`http://localhost:5000/${comment.author.imageSrc}`} /> : ''}
-          <span><b>{comment.author.username.charAt(0).toUpperCase() + comment.author.username.slice(1)}</b></span>
+          <Link style={{ textDecoration: 'none', color: 'black'}} to={`/profiles/${comment.author.username}`}>
+            {comment.author.imageSrc ? <img className="avatar-comment" src={`http://localhost:5000/${comment.author.imageSrc}`} /> : ''}
+            <span><b>{comment.author.username.charAt(0).toUpperCase() + comment.author.username.slice(1)}</b></span>
+          </Link>
           {deletableComment}
           <div className="comment-body" dangerouslySetInnerHTML={markup}></div>
           <hr />
@@ -60,8 +63,10 @@ const post = props => {
 
     Post = (
       <article className="Post">
-        {authorImage}
-        <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+        <Link style={{ textDecoration: 'none', color: 'black'}} to={`/profiles/${props.singlePost.author.username}`}>
+          {authorImage}
+          <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
+        </Link>
         {favTag}
         {editable}
         {deletable}

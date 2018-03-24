@@ -23,6 +23,15 @@ class Profile extends Component {
     this.props.onClearProfileState()
   }
 
+  componentWillUpdate(nextProps) {
+    if(this.props.match.params.id !== nextProps.match.params.id) {
+      console.log("[NEXT_URL_PARAMS]", nextProps.match.params.id)
+      this.props.onLoadProfileById(nextProps.match.params.id);
+      // this.props.onCheckAuth();
+      this.props.onLoadPostsByUser(nextProps.match.params.id)
+    }
+  }
+
   follow = (username) => {
     this.props.onFollow(username);
   }
