@@ -33,6 +33,10 @@ img:hover {
   box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
 }
 
+.edit-trigger {
+  margin-top: 10px;
+}
+
 .follow {
   border: solid 1px rgb(3, 85, 3);
   margin-right: auto;
@@ -77,5 +81,16 @@ img:hover {
 
 .following {
   margin-top: 10px;
+  margin-bottom: 10px;
   margin-right: 13px;
+}
+
+.edit-trigger {
+  color: rgb(141, 141, 4);
+  margin-right: 3px;
+  cursor: pointer;
+}
+
+.edit-trigger-container {
+  cursor: pointer;
 }

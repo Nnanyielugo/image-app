@@ -10,7 +10,8 @@ const initialState = {
     following: false
   },
   posts: [],
-  postsCount: 0
+  postsCount: 0,
+  isEditing: false
 }
 
 export const reducer = (state = initialState, action) => {

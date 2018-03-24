@@ -20,10 +20,13 @@ export { register,
           login,
           checkAuthState,
           logout,
-          fetchCurrentUser } from './authActions';
+          setCurrentUser,
+          updateCurrentUser } from './authActions';
 
 export { loadProfileById,
           fetchPostsOfUsername,
           clearProfileState,
           follow,
-          unfollow } from './profileActions';
+          unfollow,
+          triggerProfileEditing,
+          resetProfileEditing } from './profileActions';

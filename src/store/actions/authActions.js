@@ -9,13 +9,6 @@ const authStart = () => {
   }
 }
 
-const authSuccess = (user) => {
-  return {
-    type: types.AUTH_SUCCESS,
-    user
-  }
-}
-
 const authFail = (error) => {
   return {
     type: types.AUTH_FAIL,
@@ -23,10 +16,30 @@ const authFail = (error) => {
   }
 }
 
+const authSuccess = (user) => {
+  return {
+    type: types.AUTH_SUCCESS,
+    user
+  }
+}
+
 const signUpErrors = error => {
   return {
     type: types.SIGNUP_ERROR,
     error
+  }
+}
+
+const currentUser = user => {
+  return {
+    type: types.CURRENT_USER,
+    user
+  }
+}
+const editCurrentUser = user => {
+  return {
+    type: types.EDIT_CURRENT_USER,
+    user
   }
 }
 
@@ -62,7 +75,8 @@ export const register = form => {
         localStorage.setItem('email', response.data.user.email);
         localStorage.setItem('imageSrc', response.data.user.imageSrc)
         console.log(response.data);
-        dispatch(authSuccess(response.data))
+        dispatch(authSuccess(response.data.user))
+        // setCurrentUser()
       })
       .catch(error => {
         console.log(error.response.data.errors);
@@ -81,9 +95,10 @@ export const login = form => {
       localStorage.setItem('username', response.data.user.username);
       localStorage.setItem('email', response.data.user.email);
       localStorage.setItem('imageSrc', response.data.user.imageSrc)
-      console.log(response.data);
-      dispatch(authSuccess(response.data))
-      checkAuthState()
+
+      dispatch(authSuccess(response.data.user))
+     
+     
     })
     // .then( response => {dispatch(authSuccess(response.data))})
     .catch(error => {
@@ -96,11 +111,11 @@ export const login = form => {
 export const checkAuthState = () => {
   return dispatch => {
     const user = {}
+    user.token = localStorage.getItem('token');
     user.username = localStorage.getItem('username');
     user.id = localStorage.getItem('id');
     user.email = localStorage.getItem('email');
     user.username = localStorage.getItem('username');
-    user.token = localStorage.getItem('token');
     user.imageSrc = localStorage.getItem('imageSrc');
 
     if(!user.token) {
@@ -111,18 +126,44 @@ export const checkAuthState = () => {
   }
 }
 
-export const fetchCurrentUser = () => {
-  // const token = localStorage.getItem('token')
-  // console.log("[[[USER TOKEN]]] :", token)
+export const setCurrentUser = () => {
+  const token = localStorage.getItem('token')
+  console.log("[[[USER TOKEN]]] :", token)
 
-  // const header = token ? { headers: { Authorization: "Bearer " + token} } : null
-  // return dispatch => {
-  //   axios.get(`${urls.authUrl}/user`, header)
-  //     .then(response => {
-  //       console.log("CURRENT USER: ", response)
-  //     })
-  //     .catch(error => {
-  //       console.log(error)
-  //     })
-  // }
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  return dispatch => {
+    axios.get(`${urls.authUrl}/user`, header)
+      .then(response => {
+        console.log("CURRENT USER: ", response.data)
+        localStorage.setItem('id', response.data.user.id);
+        localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('email', response.data.user.email);
+        localStorage.setItem('imageSrc', response.data.user.imageSrc)
+        dispatch(currentUser(response.data.user))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
+}
+
+export const updateCurrentUser = (form) => {
+  const token = localStorage.getItem('token')
+  console.log("[[[USER TOKEN]]] :", token)
+
+  const header = token ? { headers: { Authorization: "Bearer " + token} } : null
+  return dispatch => {
+    axios.put(`${urls.authUrl}/user`, form, header)
+      .then(response => {
+        console.log("CURRENT USER: ", response.data.user)
+        localStorage.setItem('id', response.data.user.id);
+        localStorage.setItem('username', response.data.user.username);
+        localStorage.setItem('email', response.data.user.email);
+        localStorage.setItem('imageSrc', response.data.user.imageSrc);
+        dispatch(editCurrentUser(response.data.user))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 }

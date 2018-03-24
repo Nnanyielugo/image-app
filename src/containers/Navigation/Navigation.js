@@ -6,6 +6,12 @@ import Nav from '../../components/Navigation/Navigation';
 import * as actions from '../../store/actions/index';
 
 class Navigation extends Component {
+   
+  componentDidMount() {
+    this.props.onSetCurrentUser();
+    this.props.onCheckAuth()
+
+  }
   render() {
     return(
       <nav className="navbar navbar-inverse navbar-fixed-top">
@@ -27,6 +33,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onCheckAuth: () => dispatch(actions.checkAuthState()),
+    onSetCurrentUser: () => dispatch(actions.setCurrentUser()),
     onSetEditing: () => dispatch(actions.triggerEditing())
   }
 }

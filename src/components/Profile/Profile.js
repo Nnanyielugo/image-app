@@ -58,8 +58,12 @@ const profile = props => {
             
           <div className="col-sm-12 col-md-5 col-lg-5 details-container">
             <h1>{username}</h1>
+            {props.profile.bio ? <div><b>Bio: &nbsp;</b>{props.profile.bio}</div> : ''}
             <div className="following">{isOwnProfile ? <div className="following">You have {props.profile.followerCount} {followerAttachment}</div> : <div><b>{username}</b> has {props.profile.followerCount} {followerAttachment}</div>}</div>
             {following}
+            <div className="edit-trigger-container" onClick={props.triggerProfileEditing}>{isOwnProfile ? <span><span className="glyphicon glyphicon-cog edit-trigger"></span>Edit Profile</span> : ''}</div>
+            {props.isEditing ? 'Reset editing clicked' : ''}
+            {props.isEditing ? <button onClick={props.resetProfileEditing}>Cancel</button> : ''}            
           </div>
         </div>  
         {isOwnProfile ? <h3 style={{textAlign: 'center'}} >You have made {props.profilePostsCount} {postAttachment}:</h3> : <h3 style={{textAlign: 'center'}}><b>{username} &nbsp;</b>has made {props.profilePostsCount} {postAttachment}:</h3>}

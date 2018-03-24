@@ -16,6 +16,7 @@ class Post extends Component {
     console.log("[DID MOUNT]")
     this.props.onFetchPostById(this.props.match.params.id);
     this.props.onFetchComments(this.props.match.params.id);
+    this.props.onSetCurrentUser()
     this.props.onCheckAuth();
   }
 
@@ -142,6 +143,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onSetCurrentUser: () => dispatch(actions.setCurrentUser()),
     onFetchPostById: (slug) => dispatch(actions.fetchPostById(slug)),
     onloadPosts: (token) => dispatch(actions.fetchPosts(token)),
     onCheckAuth: () => dispatch(actions.checkAuthState()),

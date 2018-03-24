@@ -4,7 +4,7 @@ const initialState = {
   loggedIn: false, 
   user: null,
   recent: false,
-  loginRedirect: false 
+  loginRedirect: false
 }
 
 const reducer = (state = initialState, action) => {
@@ -16,6 +16,19 @@ const reducer = (state = initialState, action) => {
         user: null
       }
     case types.AUTH_SUCCESS:
+      return {
+        ...state,
+        loggedIn: true,
+        user: action.user
+      }
+    case types.CURRENT_USER:
+      return {
+        ...state,
+        user: action.user,
+        loggedIn: true,
+        recent: true
+      }
+    case types.EDIT_CURRENT_USER:
       return {
         ...state,
         user: action.user,
@@ -34,6 +47,7 @@ const reducer = (state = initialState, action) => {
         loggedIn: true,
         user: action.user
       }
+    
     default: 
       return state
   }

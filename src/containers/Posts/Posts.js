@@ -11,8 +11,9 @@ class Posts extends Component {
 
   componentDidMount() {
     this.props.onloadPosts();
+    this.props.onSetCurrentUser()
     this.props.onCheckAuth();
-    // this.props.onFetchCurrentUser()
+    
   }
 
   like = (slug) => {
@@ -71,7 +72,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // onFetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
+    onSetCurrentUser: () => dispatch(actions.setCurrentUser()),
     onloadPosts: () => dispatch(actions.fetchPosts()),
     onCheckAuth: () => dispatch(actions.checkAuthState()),
     onLike: (slug, token) => dispatch(actions.favPost(slug, token)),

@@ -6,17 +6,11 @@ import ProfileContent from '../../components/Profile/Profile';
 
 class Profile extends Component {
   componentDidMount() {
+    this.props.onSetCurrentUser()
     const id = this.props.match.params.id;
     this.props.onLoadProfileById(id);
     this.props.onCheckAuth();
     this.props.onLoadPostsByUser(id)
-    // setTimeout(() => {
-    //   this.props.onLoadPostsByUser(this.props.profile.username)
-    //  }, 500)
-    // const profileUsername = this.props.profile.username
-    // this.props.onLoadPostsByUser(profileUsername)
-    // console.log("[p]", profileUsername)
-    // console.log("[USER]: ", this.props.profile)
   }
 
   componentWillUnmount() {
@@ -24,11 +18,30 @@ class Profile extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    if(this.props.match.params.id !== nextProps.match.params.id) {
+    const id = this.props.match.params.id;
+    if(this.props.match.params.id !== nextProps.match.params.id
+      ) {
       console.log("[NEXT_URL_PARAMS]", nextProps.match.params.id)
       this.props.onLoadProfileById(nextProps.match.params.id);
       // this.props.onCheckAuth();
       this.props.onLoadPostsByUser(nextProps.match.params.id)
+      // this.props.onLoadProfileById(nextProps.match.params.id);
+    }
+
+  }
+
+  componentDidUpdate(nextProps) {
+    if(nextProps.profile.imageSrc  !== this.props.profile.imageSrc 
+      || this.props.profile.username !== nextProps.profile.username
+      || this.props.profile.bio !== nextProps.profile.bio ){
+      console.log('next props')
+      setTimeout(() => {
+        this.props.onLoadProfileById(this.props.match.params.id);
+       }, 300)
+      
+      
+      
+
     }
   }
 
@@ -62,6 +75,10 @@ class Profile extends Component {
     this.props.history.push('/login')
   }
 
+  triggerProfileEditing = () => {
+    this.props.history.push('/settings')
+  }
+
   render() {
     return (
       <ProfileContent 
@@ -73,7 +90,9 @@ class Profile extends Component {
         profilePostsCount={this.props.profilePostsCount}
         like={this.like}
         unlike={this.unlike}
-        loginRedirect={this.loginRedirect} />
+        loginRedirect={this.loginRedirect}
+        triggerProfileEditing={this.triggerProfileEditing}
+        isEditing={this.props.isEditing} />
     )
   }
 }
@@ -83,6 +102,7 @@ const mapStateToProps = state => {
     profile: state.profiles.profile,
     profilePosts: state.profiles.posts,
     profilePostsCount: state.profiles.postsCount,
+    isEditing: state.profiles.isEditing,
     user: state.auth.user
   }
 }
@@ -90,6 +110,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onLoadProfileById: (id) => dispatch(actions.loadProfileById(id)),
+    onSetCurrentUser: () => dispatch(actions.setCurrentUser()),
     onCheckAuth: () => dispatch(actions.checkAuthState()),
     onClearProfileState: () => dispatch(actions.clearProfileState()),
     onFollow: (username) => dispatch(actions.follow(username)),
