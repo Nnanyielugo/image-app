@@ -36,7 +36,9 @@ if(props.user){
         {authorImage}
         <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
       </Link>
+      
       {favTag}
+      <p className="date">{new Date(props.singlePost.createdAt).toDateString()}</p>
       <Link style={{ textDecoration: 'none', color: 'black' }} to={`/posts/${props.singlePost.slug}`}>
         {imgSrc}      
         <h3>{props.singlePost.title}</h3>

@@ -17,6 +17,14 @@ class Profile extends Component {
     this.props.onClearProfileState()
   }
 
+  // shouldComponentUpdate(nextProps){
+  //   if(this.props.match.params.id !== nextProps.match.params.id){
+  //     console.log("will not update")
+      
+  //   }
+  //   return true
+  // }
+
   componentWillUpdate(nextProps) {
     const id = this.props.match.params.id;
     if(this.props.match.params.id !== nextProps.match.params.id

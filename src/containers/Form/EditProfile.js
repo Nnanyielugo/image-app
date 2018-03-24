@@ -11,7 +11,7 @@ class EditProfile extends Component {
   state = {
     user: {
       email: this.props.user.email, 
-      password: '', 
+      password: this.props.user.password, 
       username: this.props.user.username.charAt(0).toUpperCase() + this.props.user.username.slice(1),
       bio: this.props.user.bio ? this.props.user.bio : ''
     },
@@ -70,7 +70,9 @@ class EditProfile extends Component {
     data.append('imageSrc', this.state.image)
     data.append('email', this.state.user.email)
     data.append('bio', this.state.user.bio)
-    data.append('password', this.state.user.password)
+    if(this.state.user.password !== undefined){
+      data.append('password', this.state.user.password)
+    }
     data.append('username', this.state.user.username)
 
     for (var value of data.values()) {

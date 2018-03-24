@@ -68,6 +68,7 @@ const post = props => {
           <span className="username">{props.singlePost.author.username.charAt(0).toUpperCase() + props.singlePost.author.username.slice(1)}</span>
         </Link>
         {favTag}
+        <p className="date">{new Date(props.singlePost.createdAt).toDateString()}</p>
         {editable}
         {deletable}
         <a target="_blank" href={imgSrc}>
